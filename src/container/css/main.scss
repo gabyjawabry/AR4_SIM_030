@@ -184,6 +184,13 @@ img.hintImgSelected {
     width: 100px;
     height: 100px;
 }
+.btn.disabled, .btn:disabled, fieldset:disabled .btn {
+    color: var(--bs-btn-disabled-color);
+    pointer-events: none;
+    background-color: #d3d4d4;
+    border-color: #898989;
+    opacity: var(--bs-btn-disabled-opacity);
+}
 .hint-button button.show-hint-button {
     border: none;
     margin: 0px;

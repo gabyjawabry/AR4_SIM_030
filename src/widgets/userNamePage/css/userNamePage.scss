@@ -16,17 +16,23 @@
     color: #9198a3;
     background-color: #f4f5f7;
 }
-.mainTypeNameHolder{
+.mainTypeNameHolder {
     width: 1080px;
     height: 430px;
     background-color: #fff;
     border-radius: 20px;
     box-shadow: 0px 6px 14px rgba(72, 84, 101, 0.15);
+
+}
+.mainTextInputHolder{
     font-size: 42px;
     font-family: var(--AbdoLineRegular);
     padding: 20px;
     gap: 65px;
     padding-top: 43px;
+    line-height: 124px;
+    display: flex;
+    justify-content: center;
 }
 span.typeNameHolderText {
     margin-left: 30px;

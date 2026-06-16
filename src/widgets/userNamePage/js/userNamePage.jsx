@@ -39,9 +39,10 @@ const UserNamePage = (props) => {
   return (
     <div className="unp-component-container component-container w-100 h-100 d-flex flex-column align-items-center justify-content-center">
         <motion.div ref={containerRef}  className="mainTypeNameHolder d-flex flex-column " variants={getAnimation("blurIn", 0.8, 1)} initial="initial" animate={controls}>
-              <div  className="mainTextHolde">
-                اكتبْ اسمَكَ لِتبدأَ مهمّةَ القيادة، ثمَّ انقرْ على زرِّ
-                تأكيدٍ:
+              <div  className="mainTextInputHolder">
+                <div  className="textInputHolder">
+                <div className="questionText">
+               اكتبْ اسمَكَ لِتبدأَ مهمّةَ القيادة، ثمَّ انقرْ على زرِّ تأكيدٍ:
               </div>
 
               <div className="typeNameHolder">
@@ -59,7 +60,10 @@ const UserNamePage = (props) => {
                   className="typeinInputField"
                   
                 />
-                <div className="next-screen-btn-holder  w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                </div>
+              </div>
+              </div>
+                <div className="next-screen-btn-holder  w-100 h-100 d-flex flex-column align-items-center ">
 
                 <Button
                   type="button"
@@ -71,7 +75,7 @@ const UserNamePage = (props) => {
                 </Button>
                 </div>
 
-              </div>
+             
 
 
         </motion.div>

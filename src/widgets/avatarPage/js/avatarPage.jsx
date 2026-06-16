@@ -32,7 +32,7 @@ const avatarPage = (props) => {
 
           <div className="showAvatarHolder">
             <div className="avatarImageHolder">
-              <img src={`../images/${avatarSelected}_selected.png`} alt="Selected Avatar" className="selected-avatar-image" />
+              <img src={`../images/good choice_${avatarSelected}.png`} alt="Selected Avatar" className="selected-avatar-image" />
             </div>
             <span className="showAvatarHolderText">اختيارٌ موفَّقٌ</span>
             <div className="next-screen-btn-holder  w-100 h-100 d-flex flex-column align-items-center justify-content-center">
