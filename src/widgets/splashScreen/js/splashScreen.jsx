@@ -144,7 +144,6 @@ const SplashScreen = ({parameters}) => {
               {content.lessonSubTitle && (<motion.div
                 {...getAnimation("bounce", 0.8, 1)}
                 className="lessonSubTitle"
-                dangerouslySetInnerHTML={{ __html: content.lessonSubTitle }}
               ></motion.div>)}
             </div>
             {
@@ -153,7 +152,7 @@ const SplashScreen = ({parameters}) => {
                   className="startLessonBtnHolder"
                   {...getAnimation("scaleIn", 0.4, 1)}
                 >
-                  <button className="startLessonBtn" onClick={handleStartAnimations}>
+                  <button className="startLessonBtn" onClick={}>
                     {!content.achievement ? 
                       <FormattedMessage id='splashScreen.start' />
                       :
