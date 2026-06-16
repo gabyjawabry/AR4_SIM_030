@@ -1,0 +1,162 @@
+.splashScreen-container {
+    position: relative;
+    height: 1080px !important;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    height: 100% !important;
+    background-image: url(../../../container/images/layout_bg.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+
+    .splashScreen-content{
+        font-family: var(--AbdoLineRegular);
+        font-size: 30px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        padding: 0;
+        justify-content: center;
+        align-items: center;
+        .characterAnimation{
+            position: absolute;
+            bottom: 175px;
+            right: 20px;
+            width: 400px;
+            height: 400px;
+        }
+    }
+}
+
+.splashScreen-content .lessonTitleHolder{
+    background-image: url(../images/splashPopup.png);
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    width: 921px;
+    height: 715px;
+    position: relative;
+    padding: 0 60px;
+    &.last{
+        background-image: url(../images/splash-final.png);
+        .splashScreen-content-titles{
+            height: calc(100% - 180px);
+        }
+    }
+}
+
+.splashScreen-content button.startLessonBtn {
+    border: 6px solid #70BF42;
+    border-radius: 30px;
+    background-color: #D4EBC6;
+    height: 88px;
+    color: #2D4C1A;
+    font-size: 60px;
+    padding: 5px 65px 0 65px;
+    font-family: var(--AbdoLineBold);
+    //font-weight: bold;
+    box-shadow: 0 4px #4854651a;
+    transition: border-color .25s;
+    &:hover{
+        border-color: #D4EBC6;
+        background-color: #F1F9EC;
+    }
+}
+// .splashScreen-content .UpperDiv {
+//     position: relative;
+//     display: flex;
+//     justify-content: space-around;
+//     align-content: center;
+//     align-items: center;
+//     gap: 20px;
+//     &.achievement{
+//         height: 180px;
+//         width: 100%;
+//         .bigStarLeft1{
+//             position: absolute;
+//             left: -70px;
+//             top: 90px;
+//             transform: rotate(45deg);
+//         }
+//         .bigStarLeft2{
+//             position: absolute;
+//             top: -20px;
+//             left: 90px;
+//             transform: rotate(45deg);
+//         }
+//         .smallStarLeft1{
+//             position: absolute;
+//             top: 80px;
+//             left: 310px;
+//             transform: rotate(45deg);
+//         }
+//         .goggles{
+//             position: absolute;
+//             top: -62px; 
+//         }
+//         .smallStarRight1{
+//             position: absolute;
+//             top: -40px;
+//             left: 620px;
+//             transform: rotate(-45deg);
+//         }
+//         .smallStarRight2{
+//             position: absolute;
+//             top: -10px;
+//             left: 790px;
+//             transform: rotate(60deg);
+//         }
+//         .bigStarRight1{
+//             position: absolute;
+//             top: 130px;
+//             left: 780px;
+//             transform: rotate(45deg);
+//         }
+//     }
+// }
+.splashScreen-content .lessonTitle {
+    display: block;
+    font-size: 80px;
+    line-height: 138px;
+    color: #FFFFFF;
+    // max-width: 600px;
+    text-align: center;
+    font-family: var(--AbdoLineBold);
+    //font-weight: bold;
+}
+.splashScreen-content .lessonSubTitle {
+    display: block;
+    font-size: 60px;
+    color: #FFB333;
+    text-align: center;
+    font-family: var(--AbdoLineBold);
+}
+
+.splashScreen-content .smallStarLeft{
+    position: absolute;
+    top: 56px;
+    left: -31px;
+}
+.splashScreen-content .smallStarRight{
+    position: absolute;
+    top: 56px;
+    left: 215px;
+}
+.splashScreen-content-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 87%;
+    margin-top: 4%;
+}
+.splashScreen-content-titles{
+    display: flex;
+    gap: 50px;
+    flex-direction: column;
+    min-height: 200px;
+}
