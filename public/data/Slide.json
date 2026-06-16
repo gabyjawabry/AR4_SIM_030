@@ -55,6 +55,22 @@
                             "component_id": "Question_6"
                         }
                     ]
+                },
+                {
+                    "slide_id": 7,
+                    "content": [
+                        {
+                            "component_id": "Question_7"
+                        }
+                    ]
+                },
+                {
+                    "slide_id": 8,
+                    "content": [
+                        {
+                            "component_id": "Question_8"
+                        }
+                    ]
                 }
             ]
         }

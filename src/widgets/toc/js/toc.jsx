@@ -6,6 +6,7 @@ import { getAnimationAsync } from "../../../container/js/utilities/helper";
 import { getAnimation, useIsVisible } from "../../../container/js/utilities/utilities";
 import { Col, Row } from 'react-bootstrap';
 import AudioWidget from '../../../container/js/audioWidget';
+import ScoreCircle from '../../../container/js/scoreCircle.jsx';
 import "../css/toc.scss";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -27,7 +28,7 @@ const TOC = (props) => {
   const [hasClicked, setHasClicked] = useState(false);
   const [firstLoad, setFirstLoad] = useState(false);
 
-  const OFFSET = 2;
+  const OFFSET = 6;
 
   const [loadedAnimations, setLoadedAnimations] = useState({});
 
@@ -259,7 +260,8 @@ const TOC = (props) => {
               <div className="UserNameText" dangerouslySetInnerHTML={{ __html: userName }} />
             </motion.div>
             <motion.div className="studentGradeHolder" variants={getAnimation("flipX", 0.6, 0.8)} initial="initial" animate={controls}>
-              <div className="studentGradeText" dangerouslySetInnerHTML={{ __html: studentGrade }} />
+              {/* <div className="studentGradeText" dangerouslySetInnerHTML={{ __html: studentGrade }} /> */}
+              <ScoreCircle score={studentGrade} />
             </motion.div>
           <motion.div className="mainQuestionHolder" variants={getAnimation("slideDown", 0.6, 0.4)} initial="initial" animate={controls}>
             <Row className="audio-help-container mb-0 mx-0">

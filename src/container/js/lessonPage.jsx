@@ -15,7 +15,7 @@ const LessonPage = () => {
   const [tocState, setTocState] = useState([]);
   const [userName, setUserName] = useState("");
   const [avatarSelected, setAvatarSelected] = useState(null);
-  const [studentGrade, setStudentGrade] = useState(20);
+  const [studentGrade, setStudentGrade] = useState(15);
   const locale = PageData.page.language;
   const sendEvent = useEventSender();
   const simulationStartTime = useRef(null);

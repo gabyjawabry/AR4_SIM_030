@@ -103,6 +103,62 @@
           }
         ]
       }
+    },
+    "Question_7": {
+      "type": "splashScreen",
+      "content":{
+        "lessonTitle": "<div class='splashScreenText-wrapper'>المرحلةُ الأولى<div class='image-holder'><img alt='slide' class='toc-image' src='images/speaker.png'></div>الإعلانُ عنِ المَهمّةِ.</div>",
+        "backgroundVideoData": {
+          "url": "videos/page7/background.mp4",
+          "poster": "videos/page7/background.png"
+      }
+    }
+  },
+    "Question_8": {
+      "type": "dnd",
+      "content": {
+        "index": 2,
+        "hintData": {
+          "hintText": "تذكّرْ: الجملةُ الفعليّةُ تبدأُ بفعلٍ (يسيرُ القطارُ)   الجملةُ الاسميّةُ تبدأُ باسمٍ (القطارُ سريعٌ)"
+        },
+        "showResult": false,
+        "mainQuestion": "صنّفِ الجملَ الآتيةَ بحسبِ نوعِها (اسميّة / فعليّة):",
+        "characterImage": "speed",
+        "mainQuestionAudio": "audio/page6/audio_6_1.mp3",
+        "rounds": [
+          {
+            "option_id": "1",  
+            "dropText": "<table><tr><th>الجمل الفعليّة</th><td>@_@</td><td>@_@</td></tr><tr><th>الجمل الاسميّة</th><td>@_@</td><td>@_@</td></tr></table>",
+            "draggableItems": [
+              { "id": "draggable-1", "type": "text", "value": "ينطلقُ القطارُ في الثامنةِ صباحًا.", "dataIndex": "object_1" },
+              { "id": "draggable-2", "type": "text", "value": "استخدمَ المهندسونَ تقنيّاتٍ حديثةً.", "dataIndex": "object_1" },
+              { "id": "draggable-3", "type": "text", "value": "تُغلَقُ الأبوابُ تلقائيًّا قبلَ الانطلاقِ.", "dataIndex": "object_1" },
+              { "id": "draggable-4", "type": "text", "value": "وصلَ القِطارُ مُتأخِّرًا عنْ موعِدِهِ.", "dataIndex": "object_1" },
+              { "id": "draggable-5", "type": "text", "value": "هذه المحطّةُ واسعةٌ.", "dataIndex": "object_2" },
+              { "id": "draggable-6", "type": "text", "value": "التّذكرةُ الّتي اشتراها أبي رخيصةٌ.", "dataIndex": "object_2" },
+              { "id": "draggable-7", "type": "text", "value": "مترو دبي رائعٌ للتنقّلِ في المدينةِ.", "dataIndex": "object_2" },
+              { "id": "draggable-8", "type": "text", "value": "السَّفرُ على مَتنِ مترو دبي مُمْتعٌ.", "dataIndex": "object_2" }
+            ],  
+            "droppableItems": [
+              { "id": "droppable-1", "type": "text", "dataIndex": "object_1"},
+              { "id": "droppable-2", "type": "text", "dataIndex": "object_1"},
+              { "id": "droppable-3", "type": "text", "dataIndex": "object_2"},
+              { "id": "droppable-4", "type": "text", "dataIndex": "object_2"}
+            ],                        
+            "submitLimit": 1,
+            "feedback": {
+              "incorrect": {
+                "text": "معَ الأسفِ… إجابتُك غيرُ دقيقة!",
+                "audio": "audio/page6/audio_6_incorrect.mp3"
+              },
+              "correct": {
+                "text": "أحسنتَ! لقدْ صنّفتَ الجملَ بطريقةٍ صحيحةٍ!",
+                "audio": "audio/page6/audio_6_correct.mp3"
+              }
+            }
+          }
+        ]
+      }
     }
   }
 }

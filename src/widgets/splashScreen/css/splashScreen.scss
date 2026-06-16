@@ -33,11 +33,11 @@
 }
 
 .splashScreen-content .lessonTitleHolder{
-    background-image: url(../images/splshPopup.png);
+    background-image: url(../images/splashPopup.png);
     background-repeat: no-repeat;
     background-size: 100% auto;
-    width: 1056px;
-    height: 954px;
+    width: 921px;
+    height: 715px;
     position: relative;
     padding: 0 60px;
     &.last{
@@ -52,7 +52,7 @@
     border: 6px solid #70BF42;
     border-radius: 30px;
     background-color: #D4EBC6;
-    height: 108px;
+    height: 88px;
     color: #2D4C1A;
     font-size: 60px;
     padding: 5px 65px 0 65px;
@@ -65,61 +65,62 @@
         background-color: #F1F9EC;
     }
 }
-.splashScreen-content .UpperDiv {
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    align-content: center;
-    align-items: center;
-    gap: 20px;
-    &.achievement{
-        height: 180px;
-        width: 100%;
-        .bigStarLeft1{
-            position: absolute;
-            left: -70px;
-            top: 90px;
-            transform: rotate(45deg);
-        }
-        .bigStarLeft2{
-            position: absolute;
-            top: -20px;
-            left: 90px;
-            transform: rotate(45deg);
-        }
-        .smallStarLeft1{
-            position: absolute;
-            top: 80px;
-            left: 310px;
-            transform: rotate(45deg);
-        }
-        .goggles{
-            position: absolute;
-            top: -62px; 
-        }
-        .smallStarRight1{
-            position: absolute;
-            top: -40px;
-            left: 620px;
-            transform: rotate(-45deg);
-        }
-        .smallStarRight2{
-            position: absolute;
-            top: -10px;
-            left: 790px;
-            transform: rotate(60deg);
-        }
-        .bigStarRight1{
-            position: absolute;
-            top: 130px;
-            left: 780px;
-            transform: rotate(45deg);
-        }
-    }
-}
+// .splashScreen-content .UpperDiv {
+//     position: relative;
+//     display: flex;
+//     justify-content: space-around;
+//     align-content: center;
+//     align-items: center;
+//     gap: 20px;
+//     &.achievement{
+//         height: 180px;
+//         width: 100%;
+//         .bigStarLeft1{
+//             position: absolute;
+//             left: -70px;
+//             top: 90px;
+//             transform: rotate(45deg);
+//         }
+//         .bigStarLeft2{
+//             position: absolute;
+//             top: -20px;
+//             left: 90px;
+//             transform: rotate(45deg);
+//         }
+//         .smallStarLeft1{
+//             position: absolute;
+//             top: 80px;
+//             left: 310px;
+//             transform: rotate(45deg);
+//         }
+//         .goggles{
+//             position: absolute;
+//             top: -62px; 
+//         }
+//         .smallStarRight1{
+//             position: absolute;
+//             top: -40px;
+//             left: 620px;
+//             transform: rotate(-45deg);
+//         }
+//         .smallStarRight2{
+//             position: absolute;
+//             top: -10px;
+//             left: 790px;
+//             transform: rotate(60deg);
+//         }
+//         .bigStarRight1{
+//             position: absolute;
+//             top: 130px;
+//             left: 780px;
+//             transform: rotate(45deg);
+//         }
+//     }
+// }
 .splashScreen-content .lessonTitle {
     display: block;
-    font-size: 100px;
+    font-size: 80px;
+    line-height: 138px;
     color: #FFFFFF;
     // max-width: 600px;
     text-align: center;
@@ -150,8 +151,8 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 82%;
-    margin-top: 8%;
+    height: 87%;
+    margin-top: 4%;
 }
 .splashScreen-content-titles{
     display: flex;

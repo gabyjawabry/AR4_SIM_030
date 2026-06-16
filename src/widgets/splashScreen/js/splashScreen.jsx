@@ -1,15 +1,16 @@
 import { motion, useAnimation, useScroll } from "framer-motion";
-import { useContext, useEffect, useState  } from 'react';
+import {  useContext, useEffect, useState, useRef } from 'react';
 import { FormattedMessage } from "react-intl";
 import '../css/splashScreen.scss';
 import { getAnimation } from "../../../container/js/utilities/utilities";
 import { PageContext } from "../../../container/js/utilities/context";
 import startSFX from '../sounds/start.mp3';
 import achievementSFX from '../sounds/achievement.mp3';
-import mainStarImg from "../images/mainStar.png";
-import bigStarImg from "../images/bigStar.png";
-import smallStarImg from "../images/smallStar.png";
-import achievementImg from "../images/achievement.png";
+import VideoPlayer from "../../videoPlayer/js/videoPlayer.jsx";
+// import mainStarImg from "../images/mainStar.png";
+// import bigStarImg from "../images/bigStar.png";
+// import smallStarImg from "../images/smallStar.png";
+// import achievementImg from "../images/achievement.png";
 import Lottie from 'lottie-react';
 
 const SplashScreen = ({parameters}) => {
@@ -17,6 +18,26 @@ const SplashScreen = ({parameters}) => {
   const controls = useAnimation();
   const { setAudioURL, stopAudio } = useContext(PageContext);
   const [startAnimation, setStartAnimation] = useState(false);
+  const videoPlayerRef = useRef();
+  const videoParams = {
+    videoData: {
+      url: content.backgroundVideoData?.url,
+      poster: content.backgroundVideoData?.poster,
+      autoplay: true,
+      preview: false,
+      showEndOverlay: false,
+      controls: {
+        control_bar: false,
+        cc: false,
+        show_duration: false,
+        show_time: false,
+        volume_control: false,
+        seekbar: false,
+        fullscreen: false,
+        video_speed: false,
+      }
+    }
+  };
 
   // Get character animation data based on content id
   //const characterAnimation = content.id ? CharacterData[content.id] : null;
@@ -61,9 +82,16 @@ const SplashScreen = ({parameters}) => {
       {...getAnimation("fade", 0.4, 0)}
     >
       <div className="splashScreen-content w-100">
+          <VideoPlayer className="videoSplashScreen"
+            parameters={videoParams}
+            autoplay={true}
+            ref={videoPlayerRef}
+          />
+
+        {/* <video  className='backgroundVideo' src= /> */}
         <motion.div {...getAnimation("bounceInTop", 0.4, 1)} className={`lessonTitleHolder ${content.last ? 'last' : ''}`}>
           <div className="splashScreen-content-wrapper">
-            {!content.achievement ? 
+            {/* {!content.achievement ? 
               <div className="UpperDiv">
                 <motion.div {...getAnimation("rotateZoomIn", 0.8, 1)} className="smallStarRight">
                   <img src={smallStarImg} alt="small star" />
@@ -105,7 +133,7 @@ const SplashScreen = ({parameters}) => {
                   <img src={bigStarImg} alt="big star" />
                 </motion.div>
               </div>
-            }
+            } */}
             <div className="splashScreen-content-titles">
               <motion.div
                 {...getAnimation("expandIn", 0.8, 1)}
