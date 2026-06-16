@@ -1,0 +1,108 @@
+{
+  "question": {
+    "Question_1": {
+      "type": "videoPlayer",
+      "id": "Question_1",
+      "videoData": {
+        "id": "introVideo",
+        "url": "videos/page2/main_video.mp4",
+        "poster": "videos/page2/main_video.png",
+        "preview": false,
+        "autoplay": false,
+        "showVideoControls": false,
+        "showEndOverlay": true,
+        "controls": {
+          "control_bar": true,
+          "cc": false,
+          "show_duration": false,
+          "show_time": false,
+          "volume_control": true,
+          "seekbar": true,
+          "download": false,
+          "audio_description": false,
+          "fullscreen": true,
+          "transcript": false,
+          "video_speed": true
+        }
+      }
+    },
+    "Question_2": {
+      "type": "userNamePage"
+    },
+    "Question_3": {
+      "type": "welcomeUser"
+    },
+    "Question_4": {
+      "type": "chooseAvatarPage",
+      "avatars": [
+        {
+          "id": "avatar01",
+          "image": "images/avatar01.png",
+          "name": "Avatar 1"
+        },
+        {
+          "id": "avatar02",
+          "image": "images/avatar02.png",
+          "name": "Avatar 2"
+        },
+        {
+          "id": "avatar03",
+          "image": "images/avatar03.png",
+          "name": "Avatar 3"
+        },
+        {
+          "id": "avatar04",
+          "image": "images/avatar04.png",
+          "name": "Avatar 4"
+        }
+      ]
+
+    },
+    "Question_5": {
+      "type": "avatarPage"
+    },
+    "Question_6": {
+      "type": "toc",
+      "content": {
+        "mainQuestionArray": [
+            "ابدأِ المرحلةَ الأولى بالضَّغطِ عليها.",
+            "انقرْ على المرحلةِ الثّانيةِ لتبدأَ بها.",
+            "انقرْ على المرحلةِ الثّالثةِ لتبدأَ بها.",
+            "انقرْ على زرِّ المَتجرِ."
+        ],
+        "mainQuestionAudioArray": [ 
+          "audio/page3/audio_start.mp3",
+          "audio/page3/audio_mid.mp3",
+          "audio/page3/audio_end.mp3",
+          "audio/page3/audio_results.mp3"
+        ],
+        "slides": [
+          {
+            "id": 0,
+            "title": "الإعلانُ عنِ المهمّةِ",
+            "ImageSource": "speaker",
+            "hidden": false
+          },
+          {
+            "id": 1,
+            "title": "توزيعُ المهامِّ على الفريقِ",
+            "ImageSource": "cog",
+            "hidden": true
+          },
+          {
+            "id": 2,
+            "title": "متابعةُ تنفيذِ المهامِّ ",
+            "ImageSource": "list",
+            "hidden": true
+          },
+          {
+            "id": 3,
+            "title": "المَتجر",
+            "ImageSource": "gift",
+            "hidden": true
+          }
+        ]
+      }
+    }
+  }
+}
