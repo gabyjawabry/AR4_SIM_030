@@ -276,44 +276,6 @@
     background-image: url(../images/lightingEffect.png);
   }
 
-
-// .characterLightingEffect{
-// height: 109px;
-//     width: 94px;
-//     background-image: url(../images/lightingEffect.png);
-//     background-repeat: no-repeat;
-//     background-size: 100% auto;
-//     position: absolute;
-//     bottom: 68px;
-//     right: 175px;
-//     z-index: 111;
-//   }
-.character_dinosaur{
-    height: 149px;
-    width: 237px;
-    // background-image: url(../images/dinosaur.png);
-    // background-repeat: no-repeat;
-    // background-size: 100% auto;
-    position: absolute;
-    bottom: 130px;
-    right: 80px;
-    z-index: 222222222;
-    
-  }
-
-.character_burjKhalifa{
-    height: 159px;
-    width: 96px;
-    // background-image: url(../images/burjKhalifa.png);
-    // background-repeat: no-repeat;
-    // background-size: 100% auto;
-    position: absolute;
-    bottom: 130px;
-    right: 140px;
-    z-index: 222222222;
-    opacity: 0;
-  }
-
 .character_animation{
   width: 100%;
   height: 100%;
@@ -352,43 +314,20 @@ span.hl.active {
     flex-direction: column;
 }
 
-.drop-text-inline{
-    table{
-        border-collapse: separate;
-        border-spacing: 0;
-        tr:first-child {
-            margin-bottom: -4px;
-        }
-        tr {
-            display: flex;
-        }
-        th{
-            padding-right: 17px;
-            background-color: #e5f7fd;
-            border: 3px solid #00b7ec;
-            width: 233px !important;
-            font-size: 42px;
-            display: block;
-            color: #00495e;
-        }
-        td{
-            background-color: #ffffff;
-            border: 3px solid #a1a5ac;
-            width: 548px !important;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: row-reverse;
-        }
-        tr:first-child th {
-            border-top-right-radius: 10px;
-        }
-
-        tr:last-child th{
-            border-bottom-right-radius: 10px;
-        }
-    }
-}
 .dnd-wrapper .mainQuestionHolderDiv {
     margin-bottom: 20px !important;
+}
+
+.dnd-game-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: whitesmoke;
+    width: 1006px;
+    min-height: 713px;
+    position: absolute;
+    bottom: 100px;
+    left: 240px;
+    border-radius: 20px;
+    box-shadow: 0px 6px 14px rgba(72, 84, 101, 0.15);
 }

@@ -6,7 +6,7 @@ import { motion, useAnimation } from "framer-motion";
 import DraggableItem from './DraggableItem.jsx';
 import DroppableItem from './DroppableItem.jsx';
 import DropTextInline from './DropTextInline.jsx';
-import GoToTOCButton from '../../../container/js/showTOCBtn.jsx';
+// import GoToTOCButton from '../../../container/js/showTOCBtn.jsx';
 import HintButton from '../../../container/js/hintButton.jsx';
 import Lottie from "lottie-react";
 import { getAnimation, shuffle, useIsVisible } from "../../../container/js/utilities/utilities.jsx";
@@ -18,7 +18,7 @@ import Feedback from '../../../container/js/feedback.jsx';
 import DropSFX from '../sounds/drop.mp3';
 import CorrectSFX from '../sounds/gauge_correct.mp3';
 import IncorrectSFX from '../sounds/gauge_incorrect.mp3';
-
+import ScoreCircle from '../../../container/js/scoreCircle.jsx';
 const DndInner = ({ droppableRefs, selectedAnswers, setSelectedAnswers, setActiveId, setUsedItems, usedItems }) => {
   const { setAudioURL } = useContext(PageContext);
   useDndMonitor({
@@ -91,7 +91,7 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
   const audioData = { url: content.mainQuestionAudio, autoplay: true, id: parameters.id || 0 };
   const roundsRef = useRef(null);
   const [feedbackAnimationData, setFeedbackAnimationData] = useState(null);
-  const pageContext = useContext(PageContext);
+  const { tocState, setAudioURL, stopAudio, avatarSelected, userName, studentGrade} = useContext(PageContext);
   const [roundData, setRoundData] = useState(null);
   const [usedItems, setUsedItems] = useState([]);
   const [activeId, setActiveId] = useState(null);
@@ -105,15 +105,15 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
   const startTime = useRef(null);
   const dndData = content.rounds[currentRound];
 
-  const renderBgImage = () => {
-    const first = findStatusByIndex(pageContext.tocState, 0);
-    const second = findStatusByIndex(pageContext.tocState, 1);
+  // const renderBgImage = () => {
+  //   const first = findStatusByIndex(pageContext.tocState, 0);
+  //   const second = findStatusByIndex(pageContext.tocState, 1);
 
-    return (
-      (first === "correct" ? "1" : "0") +
-      (second === "correct" ? "1" : "0")
-    );
-  };
+  //   return (
+  //     (first === "correct" ? "1" : "0") +
+  //     (second === "correct" ? "1" : "0")
+  //   );
+  // };
 
   const findStatusByIndex = (state, index) => {
     const item = Object.values(state || {}).find(
@@ -122,27 +122,27 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
     return item ? item.status : null;
   };
 
-  const renderMedia = () => {
+  // const renderMedia = () => {
 
-    if(feedbackAnimationData){
-      return (
-        <Lottie
-          className="character_animation"
-          animationData={feedbackAnimationData}
-          loop
-          autoplay
-        />
-      );
-    }  
+  //   if(feedbackAnimationData){
+  //     return (
+  //       <Lottie
+  //         className="character_animation"
+  //         animationData={feedbackAnimationData}
+  //         loop
+  //         autoplay
+  //       />
+  //     );
+  //   }  
 
-    return (
-      <img
-        src={`images/gauge.png`}
-        alt="gauge"
-        className="character_animation"
-      />
-    );
-  };
+  //   return (
+  //     <img
+  //       src={`images/gauge.png`}
+  //       alt="gauge"
+  //       className="character_animation"
+  //     />
+  //   );
+  // };
 
   useEffect(() => {
     if (isVisible) {      
@@ -279,14 +279,20 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
   return ( 
       <div className="dnd-container component-container w-100"
        style={{
-           backgroundImage: `url(images/mission03_train_bg_${renderBgImage()}.png)`,
+           backgroundImage: `url(images/toc_bg.png)`,
          }}>
-              <HintButton
-        hintData={content.hintData}
-        setHintData={setHintData}
-      />
-        <GoToTOCButton />
+
+        {/* <GoToTOCButton /> */}
         <motion.div ref={containerRef} className="dnd-wrapper w-100 component-content" variants={getAnimation("blurIn", 0.8, 0)} initial="initial" animate={controls}>
+         
+                        <motion.div className="avatarImageNameHolder" variants={getAnimation("bounce", 0.6, 0.4)} initial="initial" animate={controls}>
+                          <img src={`../images/${avatarSelected}_selected.png`} alt="Selected Avatar" className="selected-avatar-image" />
+                          <div className="UserNameText" dangerouslySetInnerHTML={{ __html: userName }} />
+                        </motion.div>
+                        <motion.div className="studentGradeHolder" variants={getAnimation("flipX", 0.6, 0.8)} initial="initial" animate={controls}>
+                          <ScoreCircle score={studentGrade} />
+                        </motion.div>
+                         <div className="dnd-game-container">
           <motion.div className="mainQuestionHolderDiv">
           <motion.div className="mainQuestionHolder" variants={getAnimation("slideDown", 0.6, 0.4)} initial="initial" animate={controls}>
               <Row className="audio-help-container mb-0 mx-0">
@@ -342,7 +348,7 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
                 </motion.div>
               </div>
             </motion.div>
-          </motion.div>
+         
           {allItemsDropped && (
             <div className="feedback-container-holder">
               <Feedback
@@ -353,12 +359,19 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
               />
             </div>
           )}
+
+                        <HintButton
+        hintData={content.hintData}
+        setHintData={setHintData}
+      />
+           </motion.div>
+        </div>
         </motion.div>
-        <div className="character-lighting-container">
+        {/* <div className="character-lighting-container">
             <motion.div className={`character_${content.characterImage}`} variants={getAnimation("slideUp", 1, 1.8)} initial="initial" animate={controls}>
                 {renderMedia(content.characterImage)}
             </motion.div>
-        </div>
+        </div> */}
       </div>
   );
 };

@@ -261,7 +261,6 @@ const TOC = (props) => {
               <div className="UserNameText" dangerouslySetInnerHTML={{ __html: userName }} />
             </motion.div>
             <motion.div className="studentGradeHolder" variants={getAnimation("flipX", 0.6, 0.8)} initial="initial" animate={controls}>
-              {/* <div className="studentGradeText" dangerouslySetInnerHTML={{ __html: studentGrade }} /> */}
               <ScoreCircle score={studentGrade} />
             </motion.div>
           <motion.div className="mainQuestionHolder" variants={getAnimation("slideDown", 0.6, 0.4)} initial="initial" animate={controls}>

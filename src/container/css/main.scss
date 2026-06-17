@@ -128,12 +128,14 @@ button.show-TOC-button,button.show-TOC-button:hover ,button.show-TOC-button:acti
     margin-bottom: 72px;
 }
 .mainQuestionHolder{
-    width: 1630px;
-    min-height: 120px;
+        width: 1333px;
+    min-height: 115px;
+    position: absolute;
+    right: 137px;
+    top: 48px;
     display: flex;
     align-items: center;
     padding: 20px 50px;
-    position: relative;
     justify-content: flex-start;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 40px;
@@ -198,7 +200,43 @@ img.hintImgSelected {
     cursor: pointer;
      font-family: var(--AbdoLineRegular);
 }
-
+.studentGradeHolder {
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    background-color: #fff;
+    position: absolute;
+    top: 51px;
+    left: 233px;
+    font-size: 52px;
+    display: flex;
+    transform: translate(-50%, -50%);
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+        z-index: 1111;
+}
+.avatarImageNameHolder {
+    position: absolute;
+    left: 80px;
+    top: 48px;
+        z-index: 1111;
+}
+.UserNameText {
+    min-width: 120px;
+    height: 45px;
+    background-color: #99e2f7;
+    color: #00536b;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 3px solid #00536b;
+  font-size: 32px;
+    margin-top: 5px;
+        z-index: 1111;
+}
 .hint-content {
 box-shadow: 0px 6px 14px rgba(72, 84, 101, 0.15);
     height: 392px;
