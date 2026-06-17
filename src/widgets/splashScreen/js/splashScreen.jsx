@@ -59,7 +59,7 @@ const SplashScreen = ({parameters}) => {
     >
       <div className="splashScreen-content w-100">
 
-        {content.backgroundVideoData && (
+        {content.backgroundVideoData  && (
           <VideoPlayer className="videoSplashScreen"
             parameters={videoParams}
             autoplay={true}
