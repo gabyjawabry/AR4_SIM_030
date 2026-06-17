@@ -184,10 +184,11 @@ const TOC = (props) => {
 
       setTimeout(() => setAudioURL({id: "fall1", url: SlideSFX, type: "sfx"}), 1000);
       setTimeout(() => setAudioURL({id: "fall2", url: SlideSFX, type: "sfx"}), 2500);
+      setTimeout(() => setAudioURL({id: "fall3", url: SlideSFX, type: "sfx"}), 4000);
       setTimeout(() => setAudioURL({id: "fall3", url: SlideSFX, type: "sfx"}, () => {
         handleTOCAudio();
         setAnimationsCompleted(true);
-      }), 4000);
+      }), 5500);
       
       setFirstLoad(true);
     } else {

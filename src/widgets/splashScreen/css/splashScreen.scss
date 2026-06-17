@@ -31,7 +31,9 @@
         }
     }
 }
-
+.splashScreen-content .video-player.wrapper {
+    position: absolute;
+}
 .splashScreen-content .lessonTitleHolder{
     background-image: url(../images/splashPopup.png);
     background-repeat: no-repeat;
@@ -40,6 +42,7 @@
     height: 715px;
     position: relative;
     padding: 0 60px;
+    z-index: 11111;
     &.last{
         background-image: url(../images/splash-final.png);
         .splashScreen-content-titles{
@@ -65,58 +68,7 @@
         background-color: #F1F9EC;
     }
 }
-// .splashScreen-content .UpperDiv {
-//     position: relative;
-//     display: flex;
-//     justify-content: space-around;
-//     align-content: center;
-//     align-items: center;
-//     gap: 20px;
-//     &.achievement{
-//         height: 180px;
-//         width: 100%;
-//         .bigStarLeft1{
-//             position: absolute;
-//             left: -70px;
-//             top: 90px;
-//             transform: rotate(45deg);
-//         }
-//         .bigStarLeft2{
-//             position: absolute;
-//             top: -20px;
-//             left: 90px;
-//             transform: rotate(45deg);
-//         }
-//         .smallStarLeft1{
-//             position: absolute;
-//             top: 80px;
-//             left: 310px;
-//             transform: rotate(45deg);
-//         }
-//         .goggles{
-//             position: absolute;
-//             top: -62px; 
-//         }
-//         .smallStarRight1{
-//             position: absolute;
-//             top: -40px;
-//             left: 620px;
-//             transform: rotate(-45deg);
-//         }
-//         .smallStarRight2{
-//             position: absolute;
-//             top: -10px;
-//             left: 790px;
-//             transform: rotate(60deg);
-//         }
-//         .bigStarRight1{
-//             position: absolute;
-//             top: 130px;
-//             left: 780px;
-//             transform: rotate(45deg);
-//         }
-//     }
-// }
+
 .splashScreen-content .lessonTitle {
     display: block;
     font-size: 80px;
@@ -135,16 +87,7 @@
     font-family: var(--AbdoLineBold);
 }
 
-.splashScreen-content .smallStarLeft{
-    position: absolute;
-    top: 56px;
-    left: -31px;
-}
-.splashScreen-content .smallStarRight{
-    position: absolute;
-    top: 56px;
-    left: 215px;
-}
+
 .splashScreen-content-wrapper{
     display: flex;
     flex-direction: column;
