@@ -155,22 +155,19 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
   
   useEffect(() => {
     if(dndData){
-      const object1 = shuffle(
-        (dndData.draggableItems || []).filter(
-          item => item.dataIndex === "object_1"
-        ))
-      .slice(0, 2);
+      // const object1 = shuffle(
+      //   (dndData.draggableItems || []).filter(
+      //     item => item.dataIndex === "object_1"
+      //   ))
+      // .slice(0, 2);
 
-      const object2 = shuffle(
-        (dndData.draggableItems || []).filter(
-          item => item.dataIndex === "object_2"
-        )
-      ).slice(0, 2);
+      // const object2 = shuffle(
+      //   (dndData.draggableItems || []).filter(
+      //     item => item.dataIndex === "object_2"
+      //   )
+      // ).slice(0, 2);
 
-      const finalDraggables = shuffle([
-        ...object1,
-        ...object2
-      ]);
+      const finalDraggables = shuffle(dndData.draggableItems);
 
       setRoundData({
         ...dndData,
