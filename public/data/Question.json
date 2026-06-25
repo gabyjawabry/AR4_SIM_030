@@ -5,8 +5,8 @@
       "id": "Question_1",
       "videoData": {
         "id": "introVideo",
-        "url": "videos/page2/main_video.mp4",
-        "poster": "videos/page2/main_video.png",
+        "url": "videos/page2/AR4_SIM_030_Intro.mp4",
+        "poster": "videos/page2/AR4_SIM_030_Intro.png",
         "preview": false,
         "autoplay": false,
         "showVideoControls": false,
@@ -106,18 +106,232 @@
     },
     "Question_7": {
       "type": "splashScreen",
+      "splashIndex":1,
       "content":{
         "lessonTitle": "<div class='splashScreenText-wrapper'>المرحلةُ الأولى<div class='image-holder'><img alt='slide' class='toc-image' src='images/speaker.png'></div>الإعلانُ عنِ المَهمّةِ.</div>",
         "backgroundVideoData": {
-          "url": "videos/page2/main_video.mp4",
-          "poster": "videos/page2/main_video.png"
+          "url": "videos/page2/AR4_SIM_030_Intro.mp4",
+          "poster": "videos/page2/AR4_SIM_030_Intro.png"
       }
     }
   },
     "Question_8": {
       "type": "dnd",
       "content": {
-        "index": 2,
+        "gameId":1,
+        "showResult": false,
+        "mainQuestion": "اسحَبِ الأفعالَ وضعْها في الأماكنِ المناسبةِ:",
+        "characterImage": "speed",
+        "mainQuestionAudio": "audio/page6/audio_6_1.mp3",
+        "withExplanationScreen": false,
+        "rounds": [
+          {
+            "option_id": "1",  
+            "dropText": "@_@ صديقُنا عمرُ، @_@ المُعلِّمُ بوالد عمر للاطمئنانِ عليه، @_@ الطَّبيبُ عمرَ بالرَّاحةِ، قرر أصدقاءُ عمرَ تكوينَ فريقٍ لمساعدتِه، يحتاج الفريقُ مُتطوِّعينَ.",
+            "draggableItems": [
+              { "id": "draggable-1", "type": "text", "value": "تغيب", "dataIndex": "object_1" },
+              { "id": "draggable-2", "type": "text", "value": "اتّصل", "dataIndex": "object_2" },
+              { "id": "draggable-3", "type": "text", "value": "نَصَحَ", "dataIndex": "object_3" }
+            ],  
+            "droppableItems": [
+              { "id": "droppable-1", "type": "text", "dataIndex": "object_1"},
+              { "id": "droppable-2", "type": "text", "dataIndex": "object_2"},
+              { "id": "droppable-3", "type": "text", "dataIndex": "object_3"}
+            ],                        
+            "submitLimit": 2,
+            "feedback": {
+              "incorrect": {
+                "text": "بَعْضُ الجُمَلِ لَيْسَ لَها مَعْنًى واضِحٌ.",
+                "audio": "audio/page6/audio_6_incorrect.mp3"
+              },
+              "correct": {
+                "text": "لَقَدْ أَحْسَنْتَ وَحَصَلْتَ عَلَى 5 نُقْطَةٍ إِضَافِيَّةٍ.",
+                "audio": "audio/page6/audio_6_correct.mp3"
+              }
+            }
+          }
+        ]
+      }
+    },
+
+    "Question_9": {
+      "type": "achievementScreen",
+      "content":{
+        "lessonTitle": "<div class='splashScreenText-wrapper'>لقدْ قُمتَ بِعملٍ رائعٍ!<div class='yellowText'> أعضاءُ الفريقِ:</div></div>",
+        "withAvatar":true,
+        "withScore":false
+    }
+  },
+    "Question_10": {
+      "type": "splashScreen",
+      "splashIndex":2,
+      "content":{
+        "lessonTitle": "<div class='splashScreenText-wrapper'>المرحلةُ الثَّانِيَةُ<div class='image-holder'><img alt='slide' class='toc-image' src='images/cog.png'></div>تَوْزِيعُ الْمَهَامِّ عَلَى الْفَرِيقِ.</div>",
+        "backgroundVideoData": {
+          "url": "videos/page2/AR4_SIM_030_Intro.mp4",
+          "poster": "videos/page2/AR4_SIM_030_Intro.png"
+      }
+    }
+  },
+        "Question_11": {
+      "type": "multiplechoice",
+      "content": {
+        "gameId":2,
+        "withExplanationScreen": true,
+         "explanationScreen": {
+          "image": "images/mcExplanation.png"
+        },
+        "hintData": {
+          "hintText": "الجملةُ التامّةُ: ما كان معناها مُكتملًا وواضحًا ومفيدًا، أمّا التّركيبُ النّاقصُ فهو كلامٌ لا يُتِمُّ المعنى ويَجْعَلُ السَّامِعَ يَنْتَظِرُ ما يُكمِّلُهُ."
+        },
+        "mainQuestion": "اخترِ الجملةَ التامّةَ في ما يأتي:",
+        "mainQuestionAudio": "audio/page4/audio_4_1.mp3",
+        "rounds": [
+          {
+          "correctAnswersArray": [
+            {
+              "text": "القائِدُ",
+              "index": "1"
+            }
+          ],
+          "wrongAnswersArray": [
+            {
+              "text": "وَزَّعَ",
+              "index": "0"
+            },
+            {
+              "text": "المَهامَّ",
+              "index": "2"
+            },
+            {
+              "text": "عَلى",
+              "index": "3"
+            },
+            {
+              "text": "الفَريقِ",
+              "index": "4"
+            }
+          ],
+
+        "submitLimit": 2,
+        "feedback": {
+          "continue": "next",
+          "incorrect": {
+            "text": "بعضُ العباراتِ تراكيبُ وليستْ جملةً تكوّنُ معنًى مكتملًا!",
+            "audio": "audio/page4/audio_4_incorrect.mp3"
+          },
+          "correct": {
+            "text": "أحسنتَ! هذهِ جملةٌ مكتملةٌ لها معنًى تامٌّ.",
+            "audio": "audio/page4/audio_4_correct.mp3"
+          }
+        }
+          },
+          {
+          "correctAnswersArray": [
+            {
+              "text": "القائِدُ",
+              "index": "1"
+            }
+          ],
+          "wrongAnswersArray": [
+            {
+              "text": "وَزَّعَ",
+              "index": "0"
+            },
+            {
+              "text": "المَهامَّ",
+              "index": "2"
+            },
+            {
+              "text": "عَلى",
+              "index": "3"
+            },
+            {
+              "text": "الفَريقِ",
+              "index": "4"
+            }
+          ],
+
+        "submitLimit": 2,
+        "feedback": {
+          "continue": "next",
+          "incorrect": {
+            "text": "بعضُ العباراتِ تراكيبُ وليستْ جملةً تكوّنُ معنًى مكتملًا!",
+            "audio": "audio/page4/audio_4_incorrect.mp3"
+          },
+          "correct": {
+            "text": "أحسنتَ! هذهِ جملةٌ مكتملةٌ لها معنًى تامٌّ.",
+            "audio": "audio/page4/audio_4_correct.mp3"
+          }
+        }
+          },
+
+        {
+        
+        "correctAnswersArray": [
+            {
+              "text": "القائِدُ",
+              "index": "1"
+            }
+          ],
+          "wrongAnswersArray": [
+            {
+              "text": "وَزَّعَ",
+              "index": "0"
+            },
+            {
+              "text": "المَهامَّ",
+              "index": "2"
+            },
+            {
+              "text": "عَلى",
+              "index": "3"
+            },
+            {
+              "text": "الفَريقِ",
+              "index": "4"
+            }
+          ],
+        "submitLimit": 2,
+        "feedback": {
+          "continue": "next",
+          "incorrect": {
+            "text": "بعضُ العباراتِ تراكيبُ وليستْ جملةً تكوّنُ معنًى مكتملًا!",
+            "audio": "audio/page4/audio_4_incorrect.mp3"
+          },
+          "correct": {
+            "text": "أحسنتَ! هذهِ جملةٌ مكتملةٌ لها معنًى تامٌّ.",
+            "audio": "audio/page4/audio_4_correct.mp3"
+          }
+        }
+          }
+           ]
+      }
+    },
+        "Question_12": {
+      "type": "achievementScreen",
+      "content":{
+        "lessonTitle": "<div class='splashScreenText-wrapper'>لقدْ قُمتَ بِعملٍ رائعٍ!<div class='yellowText'> :أعضاءُ الفريقِ</div></div>",
+        "withAvatar":true,
+        "withScore":false
+    }
+
+  },
+      "Question_13": {
+      "type": "splashScreen",
+      "splashIndex":3,
+      "content":{
+        "lessonTitle": "<div class='splashScreenText-wrapper'>المرحلةُ الأولى<div class='image-holder'><img alt='slide' class='toc-image' src='images/speaker.png'></div>الإعلانُ عنِ المَهمّةِ.</div>",
+        "backgroundVideoData": {
+          "url": "videos/page2/AR4_SIM_030_Intro.mp4",
+          "poster": "videos/page2/AR4_SIM_030_Intro.png"
+      }
+    }
+  },
+      "Question_14": {
+      "type": "dnd",
+      "content": {
+        "gameId":3,
         "hintData": {
           "hintText": "تذكّرْ: الجملةُ الفعليّةُ تبدأُ بفعلٍ (يسيرُ القطارُ)   الجملةُ الاسميّةُ تبدأُ باسمٍ (القطارُ سريعٌ)"
         },
@@ -125,6 +339,10 @@
         "mainQuestion": "اسحَبِ الأفعالَ وضعْها في الأماكنِ المناسبةِ:",
         "characterImage": "speed",
         "mainQuestionAudio": "audio/page6/audio_6_1.mp3",
+        "withExplanationScreen": true,
+        "explanationScreen": {
+          "image": "images/dndExplanation.png"
+        },
         "rounds": [
           {
             "option_id": "1",  
@@ -150,9 +368,42 @@
                 "audio": "audio/page6/audio_6_correct.mp3"
               }
             }
+          },
+          {
+            "option_id": "2",  
+            "dropText": "@_@ صديقُنا عمرُ، @_@ المُعلِّمُ بوالد عمر للاطمئنانِ عليه، @_@ الطَّبيبُ عمرَ بالرَّاحةِ، قرر أصدقاءُ عمرَ تكوينَ فريقٍ لمساعدتِه، يحتاج الفريقُ مُتطوِّعينَ.",
+            "draggableItems": [
+              { "id": "draggable-1", "type": "text", "value": "تغيب", "dataIndex": "object_1" },
+              { "id": "draggable-2", "type": "text", "value": "اتّصل", "dataIndex": "object_2" },
+              { "id": "draggable-3", "type": "text", "value": "نَصَحَ", "dataIndex": "object_3" }
+            ],  
+            "droppableItems": [
+              { "id": "droppable-1", "type": "text", "dataIndex": "object_1"},
+              { "id": "droppable-2", "type": "text", "dataIndex": "object_2"},
+              { "id": "droppable-3", "type": "text", "dataIndex": "object_3"}
+            ],                        
+            "submitLimit": 2,
+            "feedback": {
+              "incorrect": {
+                "text": "معَ الأسفِ… إجابتُك غيرُ دقيقة!",
+                "audio": "audio/page6/audio_6_incorrect.mp3"
+              },
+              "correct": {
+                "text": "أحسنتَ! لقدْ صنّفتَ الجملَ بطريقةٍ صحيحةٍ!",
+                "audio": "audio/page6/audio_6_correct.mp3"
+              }
+            }
           }
         ]
       }
+    },
+    "Question_15": {
+      "type": "achievementScreen",
+      "content":{
+        "lessonTitle": "<div class='splashScreenText-wrapper'>المرحلةُ الأولى<div class='image-holder'><img alt='slide' class='toc-image' src='images/speaker.png'></div>الإعلانُ عنِ المَهمّةِ.</div>",
+        "withAvatar":true,
+        "withScore":true
     }
+  }
   }
 }

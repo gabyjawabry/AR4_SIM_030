@@ -5,7 +5,7 @@ import { getAnimation , useIsVisible} from "../../../container/js/utilities/util
 import { Button } from "react-bootstrap";
 import { getAnimationAsync } from '../../../container/js/utilities/helper.jsx';
 import "../css/chooseAvatarPage.scss";
-
+import ButtonClickSFX from "../sounds/button_click.mp3";
 const chooseAvatarPage = (props) => {
   const avatars = props?.parameters?.avatars || [];
   const pageContext = useContext(PageContext);
@@ -14,6 +14,7 @@ const chooseAvatarPage = (props) => {
   const { setAvatarSelected } = useContext(PageContext);
   const [selected, setSelected] = useState(null);
   const [animationsCompleted, setAnimationsCompleted] = useState(false);
+  const { setAudioURL } = useContext(PageContext);
   const controls = useAnimation();
   const isVisible = useIsVisible(containerRef);
   const handleSubmit = () => {

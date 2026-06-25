@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef  } from "react";
 import LightbulbRounded from '../images/icons/hint.svg?react';
 import { motion } from "framer-motion";
 import { Button } from 'react-bootstrap';
@@ -7,22 +7,62 @@ import { PageContext } from "./utilities/context";
 import AudioWidget from "./audioWidget";
 import HintOpenSFX from '../audio/open.mp3';
 import HintCloseSFX from '../audio/close.mp3';
+import VideoPlayer from "../../widgets/videoPlayer/js/videoPlayer.jsx";
+import Replay from '../images/icons/replay.svg?react';
 
-const HintButton = ({ hintData }) => {
-  const hintText = hintData?.hintText;
-  const hintImage = hintData?.hintImage;
-  const hintAudio = hintData?.hintAudio;
+const HintButton = () => {
+  // const hintVideo = hintData?.hintVideo;
+  // const hintImage = hintData?.hintImage;
+  // const hintAudio = hintData?.hintAudio;
   const [showHint, setShowHint] = useState(false);
   const [renderHint, setRenderHint] = useState(false);
+  const [showReplay, setShowReplay] = useState(false);
+  const videoPlayerRef = useRef();
   const { setAudioURL, stopAudio } = useContext(PageContext);
-  const audioData = {
-    url: hintAudio,
-    autoplay: true,
-    id: "hintAudio"
+  const handleReplay = () => {
+   window.location.reload(true);
   };
+
+  const handleVideoEnd = () => {  
+    setShowReplay(true);
+  }
+
+  useEffect(() => {
+    videoPlayerRef.current?.playVideo();
+    
+  }, []);
+
+
+  const videoParams = {
+    videoData: {
+      url: "../videos/hintScreen/AR4_SIM_030_Hint.mp4",
+      autoplay: true,
+      preview: false,
+      showEndOverlay: false,
+      controls: {
+        control_bar: false,
+        cc: false,
+        show_duration: false,
+        show_time: false,
+        volume_control: false,
+        seekbar: false,
+        fullscreen: false,
+        video_speed: false,
+      }
+    }
+  };
+
+
+
+  // const audioData = {
+  //   url: hintAudio,
+  //   autoplay: true,
+  //   id: "hintAudio"
+  // };
   const openHint = () => {
     setAudioURL({ id: "hintOpen", url: HintOpenSFX, type: "sfx" });
     if (!showHint) {
+       setShowReplay(false);
       setRenderHint(true);
       setShowHint(true);
     }
@@ -41,6 +81,7 @@ const HintButton = ({ hintData }) => {
     <>
       <Button aria-label="Open hint" className={`show-hint-button btn ${showHint ? 'hintBtnSelected' : ''}`} onClick={openHint}>
         <LightbulbRounded />
+        تحتاج مساعدة؟
       </Button>
 
       {showHint && (
@@ -48,7 +89,24 @@ const HintButton = ({ hintData }) => {
           <div className='hint-holder'>
             <motion.div {...(renderHint ? getAnimation("zoomIn", 0.6, 0.5) : getAnimation("zoomOut", 0.4, 0))} className="hint-content">
               <button className="hint-close-btn" aria-label="Close hint" onClick={closeHint}>×</button>
-              <>
+
+              <VideoPlayer className="videoWithDND"
+                parameters={videoParams}
+                autoplay = "false"
+                onEnded={handleVideoEnd}
+                ref={videoPlayerRef}
+              />
+
+        {showReplay && (
+          <motion.div className="replay-btn-holder" {...getAnimation("expandIn", 0.5, 0)}>
+            <button className="replay-btn" onClick={handleReplay}> 
+              <Replay />
+            </button>
+          </motion.div>
+        )}
+
+              
+              {/* <>
                   {hintText && (
                     <div className="hint-inner-text" dangerouslySetInnerHTML={{ __html: hintText }} />
                   )}
@@ -60,7 +118,7 @@ const HintButton = ({ hintData }) => {
                 <div className="hint-audio-container">
                   <AudioWidget data={audioData} audioType="hint" />
                 </div>
-              )}
+              )} */}
             </motion.div>
           </div>
         </motion.div>

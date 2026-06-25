@@ -4,373 +4,408 @@ import AudioWidget from '../../../container/js/audioWidget.jsx';
 import { Col, Row } from 'react-bootstrap';
 import { motion, useAnimation } from "framer-motion";
 import DraggableItem from './DraggableItem.jsx';
-import DroppableItem from './DroppableItem.jsx';
 import DropTextInline from './DropTextInline.jsx';
-// import GoToTOCButton from '../../../container/js/showTOCBtn.jsx';
+import ShowAvatarAndName from '../../../container/js/showAvatarAndName.jsx';
+import ShowScoring from '../../../container/js/showScoring.jsx';
 import HintButton from '../../../container/js/hintButton.jsx';
-import Lottie from "lottie-react";
 import { getAnimation, shuffle, useIsVisible } from "../../../container/js/utilities/utilities.jsx";
-import { getAnimationAsync } from '../../../container/js/utilities/helper.jsx';
-import { createPortal } from "react-dom";
 import { PageContext } from "../../../container/js/utilities/context.jsx";
 import { DndContext, useDndMonitor } from '@dnd-kit/core';
 import Feedback from '../../../container/js/feedback.jsx';
 import DropSFX from '../sounds/drop.mp3';
 import CorrectSFX from '../sounds/gauge_correct.mp3';
 import IncorrectSFX from '../sounds/gauge_incorrect.mp3';
-import ScoreCircle from '../../../container/js/scoreCircle.jsx';
+import { getAnimationAsync } from '../../../container/js/utilities/helper.jsx';
 const DndInner = ({ droppableRefs, selectedAnswers, setSelectedAnswers, setActiveId, setUsedItems, usedItems }) => {
-  const { setAudioURL } = useContext(PageContext);
-  useDndMonitor({
-    onDragStart(e) {
-      setActiveId(e.active.id);
-    },
+	const { setAudioURL, studentGrade, avatarSelected } = useContext(PageContext);
+	useDndMonitor({
+		onDragStart(e) {
+			setActiveId(e.active.id);
+		},
+		onDragEnd(e) {
+			setActiveId(null);
+			if (!e.over) return;
+			if (usedItems.includes(e.active.id)) return;
+			const droppableIndex = e.over.data.current?.index;
+			if (typeof droppableIndex !== "number") return;
 
-    onDragEnd(e) {
-      setActiveId(null);
-      if (!e.over) return;
+			const droppable = droppableRefs.current[droppableIndex];
+			if (!droppable) return;
 
-      // prevent duplicates
-      if (usedItems.includes(e.active.id)) return;
+			const oldItems = droppable.getDroppedItems?.() || [];
 
-      const droppableIndex = e.over.data.current?.index;
-      if (typeof droppableIndex !== "number") return;
+			if (oldItems.length > 0) {
+				droppable.reset();
 
-      const droppable = droppableRefs.current[droppableIndex];
-      if (!droppable) return;
+				setUsedItems(prev =>
+					prev.filter(id => !oldItems.some(item => item.id === id))
+				);
+			}
+			const dragData = e.active.data.current || {};
+			const droppedItem = {
+				id: e.active.id,
+				value: dragData.value,
+				type: dragData.type,
+				dataIndex: dragData.dataIndex,
+				droppableItem: {
+					id: e.over.data.current?.id,
+					index: e.over.data.current?.index
+				} 
+			};
 
-      const oldItems = droppable.getDroppedItems?.() || [];
+			droppable.addDroppedItem(droppedItem);
 
-      if (oldItems.length > 0) {
-        droppable.reset();
+			setAudioURL({id: "drop", url: DropSFX, type: "sfx"});
 
-        setUsedItems(prev =>
-          prev.filter(id => !oldItems.some(item => item.id === id))
-        );
-      }
+			setSelectedAnswers(prev => {
+				const copy = [...prev];
+				copy[droppableIndex] = e.active.id;
+				return copy;
+			});
 
-      const dragData = e.active.data.current || {};
+			setUsedItems(prev => [...new Set([...prev, e.active.id])]);
+		}
+	});
 
-      const droppedItem = {
-        id: e.active.id,
-        value: dragData.value,
-        type: dragData.type,
-        dataIndex: dragData.dataIndex,
-        droppableItem: {
-          id: e.over.data.current?.id,
-          index: e.over.data.current?.index
-        } 
-      };
-
-      droppable.addDroppedItem(droppedItem);
-
-      setAudioURL({id: "drop", url: DropSFX, type: "sfx"});
-
-      setSelectedAnswers(prev => {
-        const copy = [...prev];
-        copy[droppableIndex] = e.active.id;
-        return copy;
-      });
-
-      setUsedItems(prev => [...new Set([...prev, e.active.id])]);
-    }
-  });
-
-  return null;
+	return null;
 };
 
 const dnd = ({  parameters, index, handleCheckAnswer }) => {
-  const content = parameters?.content || {};
-  const mainHolderControls = useAnimation();
-  const containerRef = useRef(null);
-  const textRef = useRef(null);
-  const controls = useAnimation();
-  const [mainHolderVisible, setMainHolderVisible] = useState(true);
-  const isVisible = useIsVisible(containerRef);
-  const [currentRound, setCurrentRound] = useState(0);
-  const audioData = { url: content.mainQuestionAudio, autoplay: true, id: parameters.id || 0 };
-  const roundsRef = useRef(null);
-  const [feedbackAnimationData, setFeedbackAnimationData] = useState(null);
-  const { tocState, setAudioURL, stopAudio, avatarSelected, userName, studentGrade} = useContext(PageContext);
-  const [roundData, setRoundData] = useState(null);
-  const [usedItems, setUsedItems] = useState([]);
-  const [activeId, setActiveId] = useState(null);
-  const [selectedAnswers, setSelectedAnswers] = useState([]);
-  const [feedbackParams, setFeedbackParams] = useState({});
-  const [droppableClasses, setDroppableClasses] = useState([]);
-  const [showDraggables, setShowDraggables] = useState(false);
-  const [hintData, setHintData] = useState('');
-  const droppableRefs = useRef([]);
-  const feedbackSubmitButtonRef = useRef();
-  const startTime = useRef(null);
-  const dndData = content.rounds[currentRound];
+	const content = parameters?.content || {};
+	const containerRef = useRef(null);
+	const mainContainerRef = useRef(null);
+	const controls = useAnimation();
+	const isVisible = useIsVisible(containerRef);
+	const [currentRound, setCurrentRound] = useState(0);
+	const audioData = { url: content.mainQuestionAudio, autoplay: true, id: parameters.id || 0 };
+	const pageContext = useContext(PageContext);
+	const { avatarSelected } = useContext(PageContext);
+	const [roundData, setRoundData] = useState(null);
+	const [usedItems, setUsedItems] = useState([]);
+	const [activeId, setActiveId] = useState(null);
+	const [selectedAnswers, setSelectedAnswers] = useState([]);
+	const [backgroundVideoData, setbackgroundVideoData] = useState(null);
+	const [feedbackParams, setFeedbackParams] = useState({});
+	const [droppableClasses, setDroppableClasses] = useState([]);
+	const [showDraggables, setShowDraggables] = useState(false);
+	const [hintData, setHintData] = useState('');
+	const droppableRefs = useRef([]);
+	const feedbackSubmitButtonRef = useRef();
+	const startTime = useRef(null);
+	const dndData = content.rounds[currentRound];
+	const [isLocked, setIsLocked] = useState(false);
+	const [withExplanationScreen, setWithExplanationScreen] = useState(content.withExplanationScreen || false);
+	const backgroundVideoRef = useRef();
+	useEffect(() => {
+		async function loadBackgroundVideo() {
+			const anim = await getAnimationAsync(`mission${content.gameId}_${avatarSelected}`);
+			setbackgroundVideoData(anim);
+		}  
 
-  // const renderBgImage = () => {
-  //   const first = findStatusByIndex(pageContext.tocState, 0);
-  //   const second = findStatusByIndex(pageContext.tocState, 1);
+		if (avatarSelected) {
+			loadBackgroundVideo();
+		}
+	}, [avatarSelected]);
 
-  //   return (
-  //     (first === "correct" ? "1" : "0") +
-  //     (second === "correct" ? "1" : "0")
-  //   );
-  // };
+	useEffect(() => {
+		if (isVisible || !withExplanationScreen) {
+			startTime.current = Date.now();
+			controls.start("animate");
+		} else {
+			controls.start("initial");
+		}
+	}, [isVisible, withExplanationScreen]);
 
-  const findStatusByIndex = (state, index) => {
-    const item = Object.values(state || {}).find(
-      (el) => el.index === index
-    );
-    return item ? item.status : null;
-  };
 
-  // const renderMedia = () => {
+	useEffect(() => {
+		if(dndData){
+			const finalDraggables = shuffle(dndData.draggableItems);
+			setRoundData({
+				...dndData,
+				draggableItems: finalDraggables
+			});
+			setSelectedAnswers([]);
+			setUsedItems([]);
+			setDroppableClasses([]);
+			setFeedbackParams({});
+			droppableRefs.current = [];
+			setShowDraggables(false);
+			setTimeout(() => setShowDraggables(true), 300);
+		}
 
-  //   if(feedbackAnimationData){
-  //     return (
-  //       <Lottie
-  //         className="character_animation"
-  //         animationData={feedbackAnimationData}
-  //         loop
-  //         autoplay
-  //       />
-  //     );
-  //   }  
+	}, [dndData]);
 
-  //   return (
-  //     <img
-  //       src={`images/gauge.png`}
-  //       alt="gauge"
-  //       className="character_animation"
-  //     />
-  //   );
-  // };
+	const filledAnswers = selectedAnswers.filter(ans => ans);
+	const allItemsDropped = roundData?.droppableItems?.length === filledAnswers.length;
 
-  useEffect(() => {
-    if (isVisible) {      
-      startTime.current = Date.now();
-      controls.start("animate");
-    }else{
-      controls.start("initial");
-    }
-  }, [isVisible]);
-  
-  useEffect(() => {
-    if(dndData){
-      // const object1 = shuffle(
-      //   (dndData.draggableItems || []).filter(
-      //     item => item.dataIndex === "object_1"
-      //   ))
-      // .slice(0, 2);
+	const checkAnswers = (type) => {
+		let feedbackData = {};
+		let answers = [];
+		setIsLocked(true);
+		if (type === "tryagain") {
+			setIsLocked(false);
+			if (pageContext.studentGrade <= 0) {
+				droppableRefs.current.forEach(d => d?.reset?.());
+				setSelectedAnswers([]);
+				setUsedItems([]);
+				setDroppableClasses([]);
+				setFeedbackParams({});
+				return;
+			}
+			const newSelectedAnswers = [...selectedAnswers];
+			const correctUsedItems = [];
+			const newClasses = [];
+			selectedAnswers.forEach((ans, i) => {
+				const drag = roundData.draggableItems?.find(d => d.id === ans);
+				const drop = roundData.droppableItems?.[i];
+				const isCorrectAnswer = drag?.dataIndex === drop?.dataIndex;
+				if (isCorrectAnswer) {
+					correctUsedItems.push(ans);
+					newClasses[i] = "correct";
+				} else {
+					droppableRefs.current[i]?.reset?.();
+					newSelectedAnswers[i] = null;
+					newClasses[i] = "";
+				}
+			});
 
-      // const object2 = shuffle(
-      //   (dndData.draggableItems || []).filter(
-      //     item => item.dataIndex === "object_2"
-      //   )
-      // ).slice(0, 2);
+			setSelectedAnswers(newSelectedAnswers);
+			setUsedItems(correctUsedItems);
+			setDroppableClasses(newClasses);
+			setFeedbackParams({});
+			return;
+		}
 
-      const finalDraggables = shuffle(dndData.draggableItems);
+		if (type === "reset") {
+			droppableRefs.current.forEach(d => d?.reset?.());
+			setSelectedAnswers([]);
+			setUsedItems([]);
+			setDroppableClasses([]);
+			setFeedbackParams({});
+			return;
+		}
+		let correct = 0;
+		let classes = [];
 
-      setRoundData({
-        ...dndData,
-        draggableItems: finalDraggables
-      });
-      setSelectedAnswers([]);
-      setUsedItems([]);
-      setDroppableClasses([]);
-      setFeedbackParams({});
-      droppableRefs.current = [];
+		selectedAnswers.forEach((ans, i) => {
+			const drag = roundData.draggableItems?.find(d => d.id === ans);
+			const drop = roundData.droppableItems?.[i];
 
-      setShowDraggables(false);
-      setTimeout(() => setShowDraggables(true), 300);
-    }
+			if (drag?.dataIndex === drop?.dataIndex) {
+				correct++;
+				classes[i] = "correct";
+			} else {
+				classes[i] = "incorrect";
+			}
 
-  }, [dndData]);
+			const answer = {
+				item: {
+					id: drag.id,
+					content: {
+						text: drag.value
+					}
+				},
+				droppedId: drop.id
+			};
+			answers.push(answer);
+		});
 
-  const filledAnswers = selectedAnswers.filter(ans => ans);
-  const allItemsDropped = roundData?.droppableItems?.length === filledAnswers.length;
+		setDroppableClasses(classes);
 
-  const getFeedbackAnimation = () => {
+		const isCorrect = correct === roundData.droppableItems.length;
+		if (isCorrect) {
+		const isLastRound = currentRound === content.rounds.length - 1;
 
-    async function loadFeedbackAnimation() {
-      
-      const status = findStatusByIndex(pageContext.tocState, 2);
+		if (!isLastRound) {
+			setTimeout(() => {
+				setCurrentRound(prev => prev + 1);
+				setSelectedAnswers([]);
+				setUsedItems([]);
+				setDroppableClasses([]);
+				setFeedbackParams({});
+				setIsLocked(false);
 
-      const anim = await getAnimationAsync(
-        `gauge${status === "correct" ? "Win" : "Fail"}`
-      );
+				droppableRefs.current.forEach(d => d?.reset?.());
+			}, 1500);
+		}
+		}
 
-      setFeedbackAnimationData(anim);
-    }
+		const newGrade = isCorrect ? pageContext.studentGrade + 5: Math.max(0, pageContext.studentGrade - 5);
+		pageContext.setStudentGrade(newGrade);
 
-    loadFeedbackAnimation();
-  }
 
-  const checkAnswers = (type) => {
-    let feedbackData = {};
-    let answers = [];
+		
+		feedbackData = {
+			class: isCorrect ? "correct" : "incorrect",
+			message: isCorrect ? roundData.feedback?.correct?.text : roundData.feedback?.incorrect?.text,
+			canRetry: !isCorrect && pageContext.studentGrade > 0,
+			answers: answers,
+			result: isCorrect ? "correct" : "incorrect",
+			startTime: startTime.current,
+			isCorrect: isCorrect,
+			audio: isCorrect ? roundData.feedback?.correct?.audio : roundData.feedback?.incorrect?.audio,
+			sfx: isCorrect ? CorrectSFX : IncorrectSFX
+		};
 
-    if (["tryagain", "reset"].includes(type)) {
-      droppableRefs.current.forEach(d => d?.reset?.());
-      setSelectedAnswers([]);
-      setUsedItems([]);
-      setDroppableClasses([]);
-      setFeedbackParams({});
-      return;
-    }
+		setFeedbackParams(feedbackData);
+		return { feedbackData };
+	};
 
-    let correct = 0;
-    let classes = [];
+	const goToNextRound = () => {
+		const isLastRound =
+			currentRound === content.rounds.length - 1;	
 
-    selectedAnswers.forEach((ans, i) => {
-      const drag = roundData.draggableItems?.find(d => d.id === ans);
-      const drop = roundData.droppableItems?.[i];
+		if (!isLastRound) {
+			setCurrentRound(prev => prev + 1);
+			setSelectedAnswers([]);
+			setUsedItems([]);
+			setDroppableClasses([]);
+			setFeedbackParams({});
+			setIsLocked(false);	
 
-      if (drag?.dataIndex === drop?.dataIndex) {
-        correct++;
-        classes[i] = "correct";
-      } else {
-        classes[i] = "incorrect";
-      }
+			droppableRefs.current = [];
+		} else {
+			const swiper =
+				document.querySelector('#container-swiper')?.swiper;	
 
-      const answer = {
-        item: {
-          id: drag.id,
-          content: {
-            text: drag.value
-          }
-        },
-        droppedId: drop.id
-      };
-      answers.push(answer);
-    });
+			if (swiper) swiper.slideNext();
+		}
+	};
+	return ( 
+		<div className="dnd-container component-container w-100" style={{ backgroundImage: `url(images/toc_bg.png)`,}}>
+				<motion.div ref={containerRef} className="dnd-wrapper w-100 component-content" variants={getAnimation("blurIn", 0.8, 0)} initial="initial" animate={controls}>
+					<motion.div className="avatarAndScore" variants={getAnimation("flipX", 0.6, 0.4)} initial="initial" animate={controls}>
+						<ShowAvatarAndName />
+						<ShowScoring />
+					</motion.div> 
+					<div className="dnd-game-container">
+						<motion.div className="mainQuestionHolderDiv">
+						<motion.div className="mainQuestionHolder" variants={getAnimation("slideDown", 0.6, 0.4)} initial="initial" animate={controls}>
+								<Row className="audio-help-container mb-0 mx-0">
+									<Col className="d-flex align-items-center justify-content-start col-1 p-0">
+										<AudioWidget data={audioData} audioType="main-question" />
+									</Col>
+								</Row>
+							<motion.div className="mainQuestion" dangerouslySetInnerHTML={{ __html: content.mainQuestion }}/>
+							</motion.div>
+						</motion.div>
+						{withExplanationScreen ? (
+							<motion.div className="text-row-1" variants={getAnimation("scaleIn", 0.6, 0.7)} initial="initial" animate={controls}>
+								<motion.div className="text-col-1 w-10" variants={getAnimation("slideRight", 0.6, 1.1)} initial="initial" animate={controls}>
+									<div className="explanation-screen">
+										<img src={content.explanationScreen.image} alt="Explanation" className="img-fluid"/>
+								<div className="startLessonBtnHolder">
+										<button className="startLessonBtn"
+											onClick={() => {
+												 setWithExplanationScreen(false);
+												 requestAnimationFrame(() => {
+													 controls.start("animate");
+												 });
+											 }}
+										>
+											استمر
+										</button>
+									</div>
+									</div>
+								</motion.div>
+							</motion.div>
+						) : (
+						<motion.div className="gameMainWrapper" variants={getAnimation("blurIn", 0.8, 0)} initial="initial" animate={controls}>
+						{pageContext.studentGrade===0 ? (
+				    		<HintButton/>
+			   			 ):<></>}
+						<motion.div className="text-row" variants={getAnimation("scaleIn", 0.6, 0.7)} initial="initial" animate={controls}>
+								<motion.div className="text-col w-10" variants={getAnimation("slideRight", 0.6, 1.1)} initial="initial" animate={controls}>
+									<div className="dnd-content">
+										<motion.div  className="dnd-wrapper" {...getAnimation("blurIn", 0.6, 1)}>
+											<DndContext>
+												<div className="dropTextHolder">
+													<DropTextInline
+														dropText={roundData?.dropText}
+														droppableItems={roundData?.droppableItems}
+														droppableClasses={droppableClasses}
+														droppableRefs={droppableRefs}
+														setUsedItems={setUsedItems}
+													/>
+												</div>
+												{showDraggables && (
+													<div className="draggable-container">
+														{roundData?.draggableItems.map(item => (
+																<motion.div key={item.id} {...getAnimation("zoomIn", 0.4, 0)}>
+																<DraggableItem
+																	id={item.id}
+																	type={item.type}
+																	value={item.value}
+																	dataIndex={item.dataIndex}
+																	cssClass = {`draggable-item ${isLocked ? 'disabled' : ''}`}
+																	isDragging={activeId === item.id}
+																	isUsed={usedItems.includes(item.id)}
+																/>
+															</motion.div>
+														))}
+													</div>
+												)}
 
-    setDroppableClasses(classes);
+												<DndInner
+													droppableRefs={droppableRefs}
+													selectedAnswers={selectedAnswers}
+													setSelectedAnswers={setSelectedAnswers}
+													setActiveId={setActiveId}
+													setUsedItems={setUsedItems}
+													usedItems={usedItems}
+												/>
 
-    const isCorrect = correct === roundData.droppableItems.length;
+											</DndContext>
+										</motion.div>
+									</div>
+								</motion.div>
+							</motion.div>
+							{allItemsDropped && pageContext.studentGrade !=0  &&(
+								<div className="feedback-container-holder">
+									<Feedback
+										feedback={feedbackParams}
+										submitLimit={roundData?.submitLimit}
+										handleSubmit={checkAnswers}
+										handleContinue={goToNextRound}
+										ref={feedbackSubmitButtonRef}
+									/>
+								</div>
+							)}
+						{content.rounds?.length > 1 && (
+							<div className="round-progress">
+								{content.rounds.map((roundMap, roundIndex) => (
+									<div  className="dotAndLine" key={roundIndex}>
+										<div className={`round-dot ${ roundIndex < currentRound ? "completed" : roundIndex === currentRound ? "active" : ""}`}>
+											{roundIndex + 1}
+										</div>
 
-    const tocIndex = content.index; 
-    const newTocState = pageContext.tocState;
-    newTocState.push({
-      index: tocIndex,
-      status: isCorrect ? "correct" : "incorrect"
-    });
-    pageContext.setTocState(newTocState);
-    
-    feedbackData = {
-      class: isCorrect ? "correct" : "incorrect",
-      message: isCorrect ? roundData.feedback?.correct?.text : roundData.feedback?.incorrect?.text,
-      answers: answers,
-      result: isCorrect ? "correct" : "incorrect",
-      startTime: startTime.current,
-      isCorrect: isCorrect,
-      audio: isCorrect ? roundData.feedback?.correct?.audio : roundData.feedback?.incorrect?.audio,
-      sfx: isCorrect ? CorrectSFX : IncorrectSFX
-    };
-
-    setFeedbackParams(feedbackData);
-
-    getFeedbackAnimation();
-
-    return { feedbackData };
-  };
-
-  return ( 
-      <div className="dnd-container component-container w-100"
-       style={{
-           backgroundImage: `url(images/toc_bg.png)`,
-         }}>
-
-        {/* <GoToTOCButton /> */}
-        <motion.div ref={containerRef} className="dnd-wrapper w-100 component-content" variants={getAnimation("blurIn", 0.8, 0)} initial="initial" animate={controls}>
-         
-                        <motion.div className="avatarImageNameHolder" variants={getAnimation("bounce", 0.6, 0.4)} initial="initial" animate={controls}>
-                          <img src={`../images/${avatarSelected}_selected.png`} alt="Selected Avatar" className="selected-avatar-image" />
-                          <div className="UserNameText" dangerouslySetInnerHTML={{ __html: userName }} />
-                        </motion.div>
-                        <motion.div className="studentGradeHolder" variants={getAnimation("flipX", 0.6, 0.8)} initial="initial" animate={controls}>
-                          <ScoreCircle score={studentGrade} />
-                        </motion.div>
-                         <div className="dnd-game-container">
-          <motion.div className="mainQuestionHolderDiv">
-          <motion.div className="mainQuestionHolder" variants={getAnimation("slideDown", 0.6, 0.4)} initial="initial" animate={controls}>
-              <Row className="audio-help-container mb-0 mx-0">
-                <Col className="d-flex align-items-center justify-content-start col-1 p-0">
-                  <AudioWidget data={audioData} audioType="main-question" />
-                </Col>
-              </Row>
-            <motion.div className="mainQuestion" dangerouslySetInnerHTML={{ __html: content.mainQuestion }}/>
-            </motion.div>
-          </motion.div>
-         <motion.div className="text-row" variants={getAnimation("scaleIn", 0.6, 0.7)} initial="initial" animate={controls}>
-            <motion.div className="text-col w-10" variants={getAnimation("slideRight", 0.6, 1.1)} initial="initial" animate={controls}>
-              <div className="dnd-content" ref={containerRef}>
-                <motion.div  className="dnd-wrapper" {...getAnimation("blurIn", 0.6, 1)}>
-                  <DndContext>
-                    <div className="dropTextHolder">
-                      <DropTextInline
-                        dropText={roundData?.dropText}
-                        droppableItems={roundData?.droppableItems}
-                        droppableClasses={droppableClasses}
-                        droppableRefs={droppableRefs}
-                        setUsedItems={setUsedItems}
-                      />
-                    </div>
-                    {showDraggables && (
-                      <div className="draggable-container">
-                        {roundData?.draggableItems.map(item => (
-                            <motion.div key={item.id} {...getAnimation("zoomIn", 0.4, 0)}>
-                            <DraggableItem
-                              id={item.id}
-                              type={item.type}
-                              value={item.value}
-                              dataIndex={item.dataIndex}
-                              cssClass = {`draggable-item ${droppableClasses.length > 0 ? 'disabled' : ''}`}
-                              isDragging={activeId === item.id}
-                              isUsed={usedItems.includes(item.id)}
-                            />
-                          </motion.div>
-                        ))}
-                      </div>
-                    )}
-
-                    <DndInner
-                      droppableRefs={droppableRefs}
-                      selectedAnswers={selectedAnswers}
-                      setSelectedAnswers={setSelectedAnswers}
-                      setActiveId={setActiveId}
-                      setUsedItems={setUsedItems}
-                      usedItems={usedItems}
-                    />
-
-                  </DndContext>
-                </motion.div>
-              </div>
-            </motion.div>
-         
-          {allItemsDropped && (
-            <div className="feedback-container-holder">
-              <Feedback
-                feedback={feedbackParams}
-                submitLimit={roundData?.submitLimit}
-                handleSubmit={checkAnswers}
-                ref={feedbackSubmitButtonRef}
-              />
-            </div>
-          )}
-
-                        <HintButton
-        hintData={content.hintData}
-        setHintData={setHintData}
-      />
-           </motion.div>
-        </div>
-        </motion.div>
-        {/* <div className="character-lighting-container">
-            <motion.div className={`character_${content.characterImage}`} variants={getAnimation("slideUp", 1, 1.8)} initial="initial" animate={controls}>
-                {renderMedia(content.characterImage)}
-            </motion.div>
-        </div> */}
-      </div>
-  );
+										{roundIndex < content.rounds.length - 1 && (
+											<div className={`round-line ${ roundIndex < currentRound ? "completed" : "" }`}/>
+										)}
+									</div>
+								))}
+							</div>
+							)}
+						
+						
+						
+						</motion.div>
+						)}
+					</div>
+				</motion.div>
+				{backgroundVideoData && 
+				<video
+					ref={backgroundVideoRef}
+					className="videoSplashScreen"
+					src={backgroundVideoData}
+					poster={`images/mission1_intro_${avatarSelected}.png`}
+					autoPlay
+					muted
+					playsInline
+				/>      
+				}
+			</div>
+	);
 };
 
 export default dnd;

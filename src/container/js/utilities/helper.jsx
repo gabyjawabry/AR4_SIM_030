@@ -114,47 +114,31 @@ export async function fetchJSONData() {
 export const AnimationsData = {};
 
 const animationImports = {
-  wheelsFail: () =>
-    import('../../animations/wheelsFail.json'),
+  
+  mission1_intro_avatar01: () =>
+    import('../../videos/mission1_intro_avatar01.mp4'),
 
-  wheelsWin: () =>
-    import('../../animations/wheelsWin.json'),
+  mission1_intro_avatar02: () =>
+    import('../../videos/mission1_intro_avatar02.mp4'),
 
-  windowsFail: () =>
-    import('../../animations/windowsFail.json'),
+  mission1_intro_avatar03: () =>
+    import('../../videos/mission1_intro_avatar03.mp4'),
 
-  windowsWin: () =>
-    import('../../animations/windowsWin.json'),
+  mission1_intro_avatar04: () =>
+    import('../../videos/mission1_intro_avatar04.mp4'),
 
-  speedFail: () =>
-    import('../../animations/speedFail.json'),
 
-  speedWin: () =>
-    import('../../animations/speedWin.json'),
+  mission1_avatar01: () =>
+    import('../../videos/mission1_avatar01.mp4'),
 
-  gaugeFail: () =>
-    import('../../animations/gaugeFail.json'),
+  mission1_avatar02: () =>
+    import('../../videos/mission1_avatar02.mp4'),
 
-  gaugeWin: () =>
-    import('../../animations/gaugeWin.json'),
+  mission1_avatar03: () =>
+    import('../../videos/mission1_avatar03.mp4'),
 
-  mission1_00: () =>
-    import('../../videos/mission1_00.mp4'),
-
-  mission1_10: () =>
-    import('../../videos/mission1_10.mp4'),
-
-  mission2_00: () =>
-    import('../../videos/mission2_00.mp4'),
-
-  mission2_01: () =>
-    import('../../videos/mission2_01.mp4'),
-
-  mission2_10: () =>
-    import('../../videos/mission2_10.mp4'),
-
-  mission2_11: () =>
-    import('../../videos/mission2_11.mp4')
+  mission1_avatar04: () =>
+    import('../../videos/mission1_avatar04.mp4')
 };
 
 async function loadAnimation(key, importer) {

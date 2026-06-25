@@ -8,7 +8,8 @@ import { getAnimationAsync } from '../../../container/js/utilities/helper.jsx';
 import startSFX from '../sounds/start.mp3';
 import achievementSFX from '../sounds/achievement.mp3';
 import VideoPlayer from "../../videoPlayer/js/videoPlayer.jsx";
-import ScoreCircle from '../../../container/js/scoreCircle.jsx';
+import ShowAvatarAndName from '../../../container/js/showAvatarAndName.jsx';
+import ShowScoring from '../../../container/js/showScoring.jsx';
 
 const SplashScreen = ({parameters}) => {
   const { content } = parameters;
@@ -17,26 +18,38 @@ const SplashScreen = ({parameters}) => {
   const isVisible = useIsVisible(containerRef);
   const { setAudioURL, stopAudio, avatarSelected, userName, studentGrade} = useContext(PageContext);
   const [startAnimation, setStartAnimation] = useState(false);
+  const [backgroundVideoData, setbackgroundVideoData] = useState(null);
   const videoPlayerRef = useRef();
-  const videoParams = {
-    videoData: {
-      url: content.backgroundVideoData?.url,
-      poster: content.backgroundVideoData?.poster,
-      autoplay: true,
-      preview: false,
-      showEndOverlay: false,
-      controls: {
-        control_bar: false,
-        cc: false,
-        show_duration: false,
-        show_time: false,
-        volume_control: false,
-        seekbar: false,
-        fullscreen: false,
-        video_speed: false,
-      }
-    }
-  };
+  const backgroundVideoRef = useRef();
+useEffect(() => {
+  async function loadBackgroundVideo() {
+    const anim = await getAnimationAsync(`mission${content.splashIndex}_intro_${avatarSelected}`);
+    setbackgroundVideoData(anim);
+  }
+
+  if (avatarSelected) {
+    loadBackgroundVideo();
+  }
+}, [avatarSelected]);
+  // const videoParams = {
+  //   videoData: {
+  //     url: content.backgroundVideoData?.url,
+  //     poster: content.backgroundVideoData?.poster,
+  //     autoplay: true,
+  //     preview: false,
+  //     showEndOverlay: false,
+  //     controls: {
+  //       control_bar: false,
+  //       cc: false,
+  //       show_duration: false,
+  //       show_time: false,
+  //       volume_control: false,
+  //       seekbar: false,
+  //       fullscreen: false,
+  //       video_speed: false,
+  //     }
+  //   }
+  // };
   const handleStartAnimations = async () => {
     stopAudio();
     const swiper = document.querySelector('#container-swiper')?.swiper;
@@ -66,24 +79,27 @@ const SplashScreen = ({parameters}) => {
   return (
     <div className="splashScreen-container p-0 m-0 h-100 w-100">
       <div className="splashScreen-content w-100">
-          <motion.div className="avatarImageNameHolder" variants={getAnimation("bounce", 0.6, 0.4)} initial="initial" animate={controls}>
+        <motion.div className="avatarAndScore" variants={getAnimation("flipX", 0.6, 0.4)} initial="initial" animate={controls}>
+          <ShowAvatarAndName />
+          <ShowScoring />
+        </motion.div> 
+          {/* <motion.div className="avatarImageNameHolder" variants={getAnimation("bounce", 0.6, 0.4)} initial="initial" animate={controls}>
             <img src={`../images/${avatarSelected}_selected.png`} alt="Selected Avatar" className="selected-avatar-image" />
             <div className="UserNameText" dangerouslySetInnerHTML={{ __html: userName }} />
           </motion.div>
           <motion.div className="studentGradeHolder" variants={getAnimation("flipX", 0.6, 0.8)} initial="initial" animate={controls}>
             <ScoreCircle score={studentGrade} />
-          </motion.div>
-      {content.backgroundVideoData  && (
+          </motion.div> */}
+      {/* {content.backgroundVideoData  && (
           <VideoPlayer className="videoSplashScreen"
             parameters={videoParams}
             autoplay={true}
             ref={videoPlayerRef}
           />
-        )}
-        <motion.div ref={containerRef}  className={`lessonTitleHolder ${content.last ? 'last' : ''}`}    variants={getAnimation("bounceInTop", 0.4, 1)} initial="initial" animate={controls}>
-          
+        )} */}  
 
-          
+
+        <motion.div ref={containerRef}  className="lessonTitleHolder"   variants={getAnimation("bounceInTop", 0.4, 1)} initial="initial" animate={controls}>
           <div className="splashScreen-content-wrapper">
             <div className="splashScreen-content-titles">
               <motion.div
@@ -116,6 +132,18 @@ const SplashScreen = ({parameters}) => {
             </motion.div>
           </div>
         </motion.div>
+        
+        {backgroundVideoData && 
+          <video
+            ref={backgroundVideoRef}
+            className="videoSplashScreen"
+            src={backgroundVideoData}
+            poster={`images/mission1_intro_${avatarSelected}.png`}
+            autoPlay
+            muted
+            playsInline
+          />      
+        }
       </div>
     </div>
   );
