@@ -34,6 +34,7 @@
     },
     "Question_4": {
       "type": "chooseAvatarPage",
+      "mainQuestionAudio": "audio/page6/audio_6_1.mp3",
       "avatars": [
         {
           "id": "avatar01",
@@ -106,15 +107,12 @@
     },
     "Question_7": {
       "type": "splashScreen",
-      "splashIndex":1,
       "content":{
-        "lessonTitle": "<div class='splashScreenText-wrapper'>المرحلةُ الأولى<div class='image-holder'><img alt='slide' class='toc-image' src='images/speaker.png'></div>الإعلانُ عنِ المَهمّةِ.</div>",
-        "backgroundVideoData": {
-          "url": "videos/page2/AR4_SIM_030_Intro.mp4",
-          "poster": "videos/page2/AR4_SIM_030_Intro.png"
-      }
+        "splashIndex":1,
+        "lessonTitle": "<div class='splashScreenText-wrapper'>المرحلةُ الأولى<div class='image-holder'><img alt='slide' class='toc-image' src='images/speaker.png'></div>الإعلانُ عنِ المَهمّةِ</div>"
     }
   },
+
     "Question_8": {
       "type": "dnd",
       "content": {
@@ -145,7 +143,7 @@
                 "audio": "audio/page6/audio_6_incorrect.mp3"
               },
               "correct": {
-                "text": "لَقَدْ أَحْسَنْتَ وَحَصَلْتَ عَلَى 5 نُقْطَةٍ إِضَافِيَّةٍ.",
+                "text": "",
                 "audio": "audio/page6/audio_6_correct.mp3"
               }
             }
@@ -153,6 +151,8 @@
         ]
       }
     },
+
+
 
     "Question_9": {
       "type": "achievementScreen",
@@ -164,13 +164,10 @@
   },
     "Question_10": {
       "type": "splashScreen",
-      "splashIndex":2,
+      
       "content":{
-        "lessonTitle": "<div class='splashScreenText-wrapper'>المرحلةُ الثَّانِيَةُ<div class='image-holder'><img alt='slide' class='toc-image' src='images/cog.png'></div>تَوْزِيعُ الْمَهَامِّ عَلَى الْفَرِيقِ.</div>",
-        "backgroundVideoData": {
-          "url": "videos/page2/AR4_SIM_030_Intro.mp4",
-          "poster": "videos/page2/AR4_SIM_030_Intro.png"
-      }
+        "splashIndex":2,
+        "lessonTitle": "<div class='splashScreenText-wrapper'>المرحلةُ الثَّانِيَةُ<div class='image-holder'><img alt='slide' class='toc-image' src='images/cog.png'></div>تَوْزِيعُ الْمَهَامِّ عَلَى الْفَرِيقِ</div>"
     }
   },
         "Question_11": {
@@ -181,10 +178,7 @@
          "explanationScreen": {
           "image": "images/mcExplanation.png"
         },
-        "hintData": {
-          "hintText": "الجملةُ التامّةُ: ما كان معناها مُكتملًا وواضحًا ومفيدًا، أمّا التّركيبُ النّاقصُ فهو كلامٌ لا يُتِمُّ المعنى ويَجْعَلُ السَّامِعَ يَنْتَظِرُ ما يُكمِّلُهُ."
-        },
-        "mainQuestion": "اخترِ الجملةَ التامّةَ في ما يأتي:",
+        "mainQuestion": "ارسمْ خطًّا أسفلَ الفاعلِ في كلِّ جملةٍ منَ الجُمَلِ الآتيةِ:",
         "mainQuestionAudio": "audio/page4/audio_4_1.mp3",
         "rounds": [
           {
@@ -217,11 +211,11 @@
         "feedback": {
           "continue": "next",
           "incorrect": {
-            "text": "بعضُ العباراتِ تراكيبُ وليستْ جملةً تكوّنُ معنًى مكتملًا!",
+            "text": "احذر، ليس هذا هو الفاعلُ. الفاعلُ هو مَنْ قامَ بالفعلِ. ",
             "audio": "audio/page4/audio_4_incorrect.mp3"
           },
           "correct": {
-            "text": "أحسنتَ! هذهِ جملةٌ مكتملةٌ لها معنًى تامٌّ.",
+            "text": "أحسنتَ!",
             "audio": "audio/page4/audio_4_correct.mp3"
           }
         }
@@ -229,26 +223,30 @@
           {
           "correctAnswersArray": [
             {
-              "text": "القائِدُ",
+              "text": "هاشِمٌ",
               "index": "1"
             }
           ],
           "wrongAnswersArray": [
             {
-              "text": "وَزَّعَ",
+              "text": "يُسَجِّلُ",
               "index": "0"
             },
             {
-              "text": "المَهامَّ",
+              "text": "الدُّروسَ",
               "index": "2"
             },
             {
-              "text": "عَلى",
+              "text": "الَّتي",
               "index": "3"
             },
             {
-              "text": "الفَريقِ",
+              "text": "فاتَتْ ",
               "index": "4"
+            },
+            {
+              "text": "عُمَرَ",
+              "index": "5"
             }
           ],
 
@@ -256,11 +254,11 @@
         "feedback": {
           "continue": "next",
           "incorrect": {
-            "text": "بعضُ العباراتِ تراكيبُ وليستْ جملةً تكوّنُ معنًى مكتملًا!",
+            "text": "احذر، ليس هذا هو الفاعلُ. الفاعلُ هو مَنْ قامَ بالفعلِ. ",
             "audio": "audio/page4/audio_4_incorrect.mp3"
           },
           "correct": {
-            "text": "أحسنتَ! هذهِ جملةٌ مكتملةٌ لها معنًى تامٌّ.",
+            "text": "أحسنتَ!",
             "audio": "audio/page4/audio_4_correct.mp3"
           }
         }
@@ -270,25 +268,25 @@
         
         "correctAnswersArray": [
             {
-              "text": "القائِدُ",
+              "text": "هِنْدُ",
               "index": "1"
             }
           ],
           "wrongAnswersArray": [
             {
-              "text": "وَزَّعَ",
+              "text": "تَكْتُبُ",
               "index": "0"
             },
             {
-              "text": "المَهامَّ",
+              "text": "رِسالَةً",
               "index": "2"
             },
             {
-              "text": "عَلى",
+              "text": "لِتَشْجِيعِ",
               "index": "3"
             },
             {
-              "text": "الفَريقِ",
+              "text": "عُمَرَ",
               "index": "4"
             }
           ],
@@ -296,11 +294,11 @@
         "feedback": {
           "continue": "next",
           "incorrect": {
-            "text": "بعضُ العباراتِ تراكيبُ وليستْ جملةً تكوّنُ معنًى مكتملًا!",
+            "text": "احذر، ليس هذا هو الفاعلُ. الفاعلُ هو مَنْ قامَ بالفعلِ. ",
             "audio": "audio/page4/audio_4_incorrect.mp3"
           },
           "correct": {
-            "text": "أحسنتَ! هذهِ جملةٌ مكتملةٌ لها معنًى تامٌّ.",
+            "text": "أحسنتَ!",
             "audio": "audio/page4/audio_4_correct.mp3"
           }
         }
@@ -311,30 +309,23 @@
         "Question_12": {
       "type": "achievementScreen",
       "content":{
-        "lessonTitle": "<div class='splashScreenText-wrapper'>لقدْ قُمتَ بِعملٍ رائعٍ!<div class='yellowText'> :أعضاءُ الفريقِ</div></div>",
-        "withAvatar":true,
-        "withScore":false
+        "lessonTitle": "<div class='splashScreenText-wrapper'>ممتاز لقد أنهيتَ المرحلةَ الثّانيةَ بنجاحٍ<div class='yellowText'> رصيد نقاطك الحالي هو:</div></div>",
+        "withAvatar":false,
+        "withScore":true
     }
 
   },
       "Question_13": {
       "type": "splashScreen",
-      "splashIndex":3,
       "content":{
-        "lessonTitle": "<div class='splashScreenText-wrapper'>المرحلةُ الأولى<div class='image-holder'><img alt='slide' class='toc-image' src='images/speaker.png'></div>الإعلانُ عنِ المَهمّةِ.</div>",
-        "backgroundVideoData": {
-          "url": "videos/page2/AR4_SIM_030_Intro.mp4",
-          "poster": "videos/page2/AR4_SIM_030_Intro.png"
-      }
+        "splashIndex":3,
+        "lessonTitle": "<div class='splashScreenText-wrapper'> المرحلةُ الثَّالِثَةُ<div class='image-holder'><img alt='slide' class='toc-image' src='images/list.png'></div>مُتَابَعَةُ تَنْفِيذِ الْمَهَامِّ</div>"
     }
   },
       "Question_14": {
       "type": "dnd",
       "content": {
         "gameId":3,
-        "hintData": {
-          "hintText": "تذكّرْ: الجملةُ الفعليّةُ تبدأُ بفعلٍ (يسيرُ القطارُ)   الجملةُ الاسميّةُ تبدأُ باسمٍ (القطارُ سريعٌ)"
-        },
         "showResult": false,
         "mainQuestion": "اسحَبِ الأفعالَ وضعْها في الأماكنِ المناسبةِ:",
         "characterImage": "speed",
@@ -346,14 +337,12 @@
         "rounds": [
           {
             "option_id": "1",  
-            "dropText": "@_@ صديقُنا عمرُ، @_@ المُعلِّمُ بوالد عمر للاطمئنانِ عليه، @_@ الطَّبيبُ عمرَ بالرَّاحةِ، قرر أصدقاءُ عمرَ تكوينَ فريقٍ لمساعدتِه، يحتاج الفريقُ مُتطوِّعينَ.",
+            "dropText": "<table><tr><td>@_@</td><td>@_@ </td><td>@_@</td></tr><tr><td> وزَّعَ</td><td>القائدُ</td><td>المهامَ</td></tr></table>",
             "draggableItems": [
-              { "id": "draggable-1", "type": "text", "value": "تغيب", "dataIndex": "object_1" },
-              { "id": "draggable-2", "type": "text", "value": "اتّصل", "dataIndex": "object_2" },
-              { "id": "draggable-3", "type": "text", "value": "نَصَحَ", "dataIndex": "object_3" }
+              { "id": "draggable-1", "type": "text", "value": "<div class='tickSign'></div>", "dataIndex": "object_3" }
             ],  
             "droppableItems": [
-              { "id": "droppable-1", "type": "text", "dataIndex": "object_1"},
+               { "id": "droppable-1", "type": "text", "dataIndex": "object_1"},
               { "id": "droppable-2", "type": "text", "dataIndex": "object_2"},
               { "id": "droppable-3", "type": "text", "dataIndex": "object_3"}
             ],                        
@@ -400,10 +389,61 @@
     "Question_15": {
       "type": "achievementScreen",
       "content":{
-        "lessonTitle": "<div class='splashScreenText-wrapper'>المرحلةُ الأولى<div class='image-holder'><img alt='slide' class='toc-image' src='images/speaker.png'></div>الإعلانُ عنِ المَهمّةِ.</div>",
-        "withAvatar":true,
+        "lessonTitle": "<div class='splashScreenText-wrapper'>أحسنتَ! لقد أَنهيتَ المرحلةَ الثّالثةَ بنجاحٍ <div class='yellowText'> رصيد نقاطك الحالي هو:</div></div>",
+        "withAvatar":false,
         "withScore":true
     }
-  }
+  },   
+    "Question_16": {
+      "type": "giftShop",
+      "content": {
+        "gameId":4,
+        "mainQuestion": "حدِّدِ الهديّةَ ثمَّ انقرْ على زرِّ شراءٍ.",
+        "mainQuestionAudio": "audio/page4/audio_4_1.mp3",
+        "OptionsArray": [
+            { "id": 1,
+              "text": "<img alt='slide' class='toc-image' src='images/Elements_toy01.png'>",
+              "index": "15"
+            },
+            { "id": 2,
+              "text": "<img alt='slide' class='toc-image' src='images/Elements_toy02.png'>",
+              "index": "10"
+            },
+            { "id": 3,
+              "text": "<img alt='slide' class='toc-image' src='images/Elements_toy03.png'>",
+              "index": "10"
+            },
+            { "id": 4,
+              "text": "<img alt='slide' class='toc-image' src='images/Elements_toy04.png'>",
+              "index": "5"
+            },
+            { "id": 5,
+              "text": "<img alt='slide' class='toc-image' src='images/Elements_toy05.png'>",
+              "index": "10"
+            },
+            { "id": 6,
+              "text": "<img alt='slide' class='toc-image' src='images/Elements_toy06.png'>",
+              "index": "25"
+            }
+          ],
+        "feedback": {
+          "incorrect": {
+            "text": "هذهِ الهديّةُ تحتاجُ إلى رَصيدِ نقاطٍ أكبرَ<br>يمكنكَ إعادة المُحاكاةِ والحصول على نقاطٍ أكبرَ لتتمكّنَ من شراءِ هذهِ الهديّةِ. ",
+            "audio": "audio/page4/audio_4_incorrect.mp3"
+          },
+          "correct": {
+            "text": "أحسنتَ!",
+            "audio": "audio/page4/audio_4_correct.mp3"
+          }
+        }
+      }
+    },
+    "Question_17": {
+      "type": "resultsScreen",
+      "content":{
+        "videoUrl": "videos/resultsScreen/end_video.mp4",
+        "videoPoster": "videos/resultsScreen/end_video.png"
+      }
+    }
   }
 }

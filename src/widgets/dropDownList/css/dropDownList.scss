@@ -9,6 +9,13 @@
     border-radius: 25px;
     padding: 20px 50px;
 }
+.explanation-screen {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 145px;
+}
 .drop-text-dropdown {
     height: 100%;
     font-family: var(--AbdoLineRegular);

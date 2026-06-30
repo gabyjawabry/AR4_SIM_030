@@ -82,23 +82,15 @@ const MultipleChoice = (props) => {
     setSubmitted(false);
     setChecked(false);
     setFeedbackParams({});
+
+
+
+
+    
   }, [currentRound]);
 
 
 
-  useEffect(() => {
-    async function loadBackgroundVideo() {
-      const anim = await getAnimationAsync(
-        `mission1_${avatarSelected}`
-      );  
-
-      setBackgroundVideoData(anim);
-    } 
-
-    if (avatarSelected) {
-      loadBackgroundVideo();
-    }
-  }, [avatarSelected]);
     useEffect(() => {
       setSubmitCount(0);
       setFeedbackParams({});
@@ -198,7 +190,30 @@ const MultipleChoice = (props) => {
     }else{
       controls.start("initial");
     }
-  }, [isVisible, withExplanationScreen]); 
+  async function loadBackgroundVideo() {
+    let anim;   
+
+    if (currentRound === 0) {
+      anim = await getAnimationAsync(
+        `mission${content.gameId}_question1_${avatarSelected}`
+      );
+    } 
+    else if (currentRound === 1) {
+      anim = await getAnimationAsync(
+        `mission${content.gameId}_question2`
+      );
+    } 
+    else {
+      anim = await getAnimationAsync(
+        `mission${content.gameId}_question3`
+      );
+    }
+      setBackgroundVideoData(anim);
+    }  
+    if (isVisible)  {
+      loadBackgroundVideo();
+    }
+  }, [isVisible, withExplanationScreen ,currentRound]); 
 
   useEffect(() => {
     if (feedbackVideoData && feedbackVideoRef.current) {      

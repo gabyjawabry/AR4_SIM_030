@@ -102,19 +102,19 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
 			setbackgroundVideoData(anim);
 		}  
 
-		if (avatarSelected) {
+		if (avatarSelected && content?.gameId !== undefined)  {
 			loadBackgroundVideo();
 		}
-	}, [avatarSelected]);
+	}, [isVisible]);
 
 	useEffect(() => {
-		if (isVisible || !withExplanationScreen) {
+		if (isVisible) {
 			startTime.current = Date.now();
 			controls.start("animate");
 		} else {
 			controls.start("initial");
 		}
-	}, [isVisible, withExplanationScreen]);
+	}, [isVisible]);
 
 
 	useEffect(() => {
@@ -136,7 +136,7 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
 	}, [dndData]);
 
 	const filledAnswers = selectedAnswers.filter(ans => ans);
-	const allItemsDropped = roundData?.droppableItems?.length === filledAnswers.length;
+	const allItemsDropped = roundData?.draggableItems?.length === filledAnswers.length;
 
 	const checkAnswers = (type) => {
 		let feedbackData = {};
@@ -212,7 +212,7 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
 
 		setDroppableClasses(classes);
 
-		const isCorrect = correct === roundData.droppableItems.length;
+		const isCorrect = correct === roundData.draggableItems.length;
 		if (isCorrect) {
 		const isLastRound = currentRound === content.rounds.length - 1;
 

@@ -39,7 +39,7 @@ const DraggableItem = ({
       {...listeners}
       {...attributes}
     >
-      {type === "text" ? <span>{value}</span> : <img src={value} alt="" />}
+      {type === "text" ? <span dangerouslySetInnerHTML={{ __html: value}}></span> : <img src={value} alt="" />}
     </div>
   );
 };

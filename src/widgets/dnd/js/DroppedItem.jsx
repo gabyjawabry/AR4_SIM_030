@@ -15,7 +15,7 @@ const DroppedItem = ({ item, index, className, remove }) => {
     >
       {item.type === "text" ? (
         <>
-          <span>{item.value}</span>
+          <span dangerouslySetInnerHTML={{ __html: item.value}}></span>
           {
             className.includes('correct') && !className.includes('incorrect') && (
               <>

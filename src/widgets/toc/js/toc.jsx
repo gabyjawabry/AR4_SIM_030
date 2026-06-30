@@ -36,18 +36,16 @@ const TOC = (props) => {
   const isVisible = useIsVisible(containerRef);
   const [animationsCompleted, setAnimationsCompleted] = useState(false);
 
-
-  const incorrectCount = Object.values(tocState || {}).filter(
-    (item) => item.status === "incorrect"
-  ).length;
-
   const handleSlideClick = (slide, index) => {
-    setActiveSlide(prev => prev + 1);
+    setActiveSlide(prev =>
+  hasClicked.includes(index) ? prev : prev + 1
+);
     setHasClicked(prev =>
       prev.includes(index) ? prev : [...prev, index]
     );
 
     const swiper = document.querySelector("#container-swiper")?.swiper;
+    swiper.slideTo(OFFSET + (index * 3), 1);
 
     setAudioURL({
       id: "screenOpen",
@@ -55,11 +53,6 @@ const TOC = (props) => {
       type: "sfx",
     });
 
-    if (swiper) {
-      swiper.slideTo(OFFSET + (index * 3), 1);
-    }
-
-    // setHasClicked(true);
     props?.action?.({ slide, index });
   };
 
@@ -77,9 +70,7 @@ const TOC = (props) => {
   
   const handleTOCAudio = () => {
     const swiper = document.querySelector("#container-swiper")?.swiper;
-
     const activeSlideId = swiper?.slides?.[swiper.activeIndex]?.getAttribute("id");
-
     if (activeSlideId === "Main_Slide-2") {
       const answeredSlides = Object.values(tocState || {}).filter(
         (s) => s?.status
@@ -92,12 +83,6 @@ const TOC = (props) => {
       });
     }
   };
-
-  // const handleMissionAchieved = () => {
-  //   stopAudio();
-  //   const swiper = document.querySelector("#container-swiper")?.swiper;
-  //   swiper?.slideTo(6, 1);
-  // };
 
   useEffect(() => {
     if (!isVisible) return;
@@ -206,14 +191,6 @@ const TOC = (props) => {
             );
           })}
         </div>
-
-        {/* {answeredCount === 3 && (
-          <div className="achievement-btn-holder">
-            <button onClick={handleMissionAchieved}>
-              <FormattedMessage id="toc.results" />
-            </button>
-          </div>
-        )} */}
       </div>
     </div>
   );

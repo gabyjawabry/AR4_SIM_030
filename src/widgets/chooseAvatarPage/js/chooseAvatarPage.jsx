@@ -3,9 +3,11 @@ import { motion, useAnimation } from "framer-motion";
 import { PageContext } from "../../../container/js/utilities/context";
 import { getAnimation , useIsVisible} from "../../../container/js/utilities/utilities";
 import { Button } from "react-bootstrap";
+import AudioWidget from '../../../container/js/audioWidget';
 import { getAnimationAsync } from '../../../container/js/utilities/helper.jsx';
 import "../css/chooseAvatarPage.scss";
 import ButtonClickSFX from "../sounds/button_click.mp3";
+import { Col, Row } from 'react-bootstrap';
 const chooseAvatarPage = (props) => {
   const avatars = props?.parameters?.avatars || [];
   const pageContext = useContext(PageContext);
@@ -17,6 +19,11 @@ const chooseAvatarPage = (props) => {
   const { setAudioURL } = useContext(PageContext);
   const controls = useAnimation();
   const isVisible = useIsVisible(containerRef);
+  const audioData = {
+    url: props?.parameters?.mainQuestionAudio,
+    autoplay: true,
+    id: props?.parameters?.id || 0
+  };
   const handleSubmit = () => {
     const swiper = document.querySelector('#container-swiper')?.swiper;
     if (swiper) swiper.slideTo(4, 1);
@@ -33,6 +40,11 @@ const chooseAvatarPage = (props) => {
     <div className="cap-component-container component-container w-100 h-100 d-flex flex-column align-items-center justify-content-center">
         <motion.div ref={containerRef}  className="mainAvatarHolder d-flex flex-column " variants={getAnimation("blurIn", 0.8, 1)} initial="initial" animate={controls}>
               <div  className="mainTextHolde">
+              <Row className="cap-help-container mb-0 mx-3">
+              <Col className="d-flex align-items-center justify-content-start col-1 p-0">
+                <AudioWidget data={audioData} audioType="main-question" />
+              </Col>
+            </Row>
                 اخترِ الشّخصيّةَ الّتي سَتُمَثِّلُكَ في قيادةِ الفريقِ.
               
               </div>

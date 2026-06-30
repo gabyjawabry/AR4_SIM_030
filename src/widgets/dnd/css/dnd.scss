@@ -1,6 +1,7 @@
    .dnd-content {
     height: 100%;
     display: flex;
+        justify-content: center; 
     } 
     .dnd-wrapper {
     display: flex;
@@ -348,7 +349,6 @@ span.hl.active {
     display: flex;
     flex-direction: column;
 }
-
 .dnd-wrapper .mainQuestionHolderDiv {
 margin: 30px 0 !important;
 }
@@ -364,6 +364,19 @@ margin: 30px 0 !important;
     left: 240px;
     border-radius: 20px;
     box-shadow: 0px 6px 14px rgba(72, 84, 101, 0.15);
+
+
+tr {
+    display: flex;
+}
+td {
+    display: flex;
+    width: 104px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    font-size: 50px;
+}
     .mainQuestionHolder {
         width: 100%;
         min-height: 115px;
@@ -383,12 +396,44 @@ margin: 30px 0 !important;
         padding-right: 160px;
     }
 
-    .startLessonBtnHolder {
+
+
+
+}
+.dotAndLine {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.tickSign {
+    position: relative;
+    width: 65px;
+    height: 65px;
+}
+
+.tickSign::before {
+content: "";
+    position: absolute;
+    left: 21px;
+    top: 9px;
+    width: 21px;
+    height: 39px;
+    border: solid #28a745;
+    border-width: 0 8px 8px 0;
+    transform: rotate(45deg);
+}
+#Main_Slide-14 .draggable-item.draggable-item {
+    width: 65px;
+    height: 65px;
+}
+   .dnd-wrapper  .startLessonBtnHolder {
  position: absolute;
     left: 45px;
     bottom: 22px;
 }
-  button.startLessonBtn {
+  .dnd-wrapper  button.startLessonBtn {
     border: 5px solid #70BF42;
     border-radius: 36px;
     background-color: #D4EBC6;
@@ -405,12 +450,4 @@ margin: 30px 0 !important;
         border-color: #D4EBC6;
         background-color: #F1F9EC;
     }
-}
-
-}
-.dotAndLine {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
 }

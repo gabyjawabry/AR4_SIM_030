@@ -127,7 +127,6 @@ const animationImports = {
   mission1_intro_avatar04: () =>
     import('../../videos/mission1_intro_avatar04.mp4'),
 
-
   mission1_avatar01: () =>
     import('../../videos/mission1_avatar01.mp4'),
 
@@ -138,7 +137,55 @@ const animationImports = {
     import('../../videos/mission1_avatar03.mp4'),
 
   mission1_avatar04: () =>
-    import('../../videos/mission1_avatar04.mp4')
+    import('../../videos/mission1_avatar04.mp4'),
+
+   mission2_intro_avatar01: () =>
+    import('../../videos/mission2_intro_avatar01.mp4'),
+
+  mission2_intro_avatar02: () =>
+    import('../../videos/mission2_intro_avatar02.mp4'),
+
+  mission2_intro_avatar03: () =>
+    import('../../videos/mission2_intro_avatar03.mp4'),
+
+  mission2_intro_avatar04: () =>
+    import('../../videos/mission2_intro_avatar04.mp4'),
+
+  mission2_question1_avatar01: () =>
+    import('../../videos/mission2_question1_avatar01.mp4'),
+
+  mission2_question1_avatar02: () =>
+    import('../../videos/mission2_question1_avatar02.mp4'),
+
+   mission2_question1_avatar03: () =>
+    import('../../videos/mission2_question1_avatar03.mp4'),
+
+  mission2_question1_avatar04: () =>
+    import('../../videos/mission2_question1_avatar04.mp4'),
+
+  mission2_question2: () =>
+    import('../../videos/mission2_question2.mp4'),
+
+  mission2_question3: () =>
+    import('../../videos/mission2_question3.mp4'),
+
+   mission3_intro_avatar01: () =>
+    import('../../videos/mission3_intro_avatar01.mp4'),
+
+  mission3_intro_avatar02: () =>
+    import('../../videos/mission3_intro_avatar02.mp4'),
+
+  mission3_intro_avatar03: () =>
+    import('../../videos/mission3_intro_avatar03.mp4'),
+
+  mission3_intro_avatar04: () =>
+    import('../../videos/mission3_intro_avatar04.mp4'),
+
+  Gift_Shop: () =>
+    import('../../videos/Gift_Shop.mp4')
+
+
+
 };
 
 async function loadAnimation(key, importer) {
