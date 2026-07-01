@@ -27,14 +27,15 @@
       }
     },
     "Question_2": {
-      "type": "userNamePage"
+      "type": "userNamePage",
+      "mainQuestionAudio": "audio/page3/audio_3_1.mp3"
     },
     "Question_3": {
       "type": "welcomeUser"
     },
     "Question_4": {
       "type": "chooseAvatarPage",
-      "mainQuestionAudio": "audio/page6/audio_6_1.mp3",
+      "mainQuestionAudio": "audio/page4/audio_4_1.mp3",
       "avatars": [
         {
           "id": "avatar01",
@@ -60,7 +61,8 @@
 
     },
     "Question_5": {
-      "type": "avatarPage"
+      "type": "avatarPage",
+      "mainQuestionAudio": "audio/page5/audio_5_1.mp3"
     },
     "Question_6": {
       "type": "toc",
@@ -72,10 +74,10 @@
             "انقرْ على زرِّ المَتجرِ."
         ],
         "mainQuestionAudioArray": [ 
-          "audio/page3/audio_start.mp3",
-          "audio/page3/audio_mid.mp3",
-          "audio/page3/audio_end.mp3",
-          "audio/page3/audio_results.mp3"
+          "audio/page6/audio6_1.mp3",
+          "audio/page6/audio6_2.mp3",
+          "audio/page6/audio6_3.mp3",
+          "audio/page6/audio6_4.mp3"
         ],
         "slides": [
           {
@@ -109,6 +111,7 @@
       "type": "splashScreen",
       "content":{
         "splashIndex":1,
+        "mainQuestionAudio": "audio/page7/audio_7_1.mp3",
         "lessonTitle": "<div class='splashScreenText-wrapper'>المرحلةُ الأولى<div class='image-holder'><img alt='slide' class='toc-image' src='images/speaker.png'></div>الإعلانُ عنِ المَهمّةِ</div>"
     }
   },
@@ -120,7 +123,8 @@
         "showResult": false,
         "mainQuestion": "اسحَبِ الأفعالَ وضعْها في الأماكنِ المناسبةِ:",
         "characterImage": "speed",
-        "mainQuestionAudio": "audio/page6/audio_6_1.mp3",
+        "mainQuestionAudio": "audio/page8/audio_8_1.mp3",
+        "hintAudio": "audio/page8/audio_8_hint.mp3",
         "withExplanationScreen": false,
         "rounds": [
           {
@@ -140,11 +144,11 @@
             "feedback": {
               "incorrect": {
                 "text": "بَعْضُ الجُمَلِ لَيْسَ لَها مَعْنًى واضِحٌ.",
-                "audio": "audio/page6/audio_6_incorrect.mp3"
+                "audio": "audio/page8/audio_8_incorrect.mp3"
               },
               "correct": {
                 "text": "",
-                "audio": "audio/page6/audio_6_correct.mp3"
+                "audio": "audio/page8/audio_8_correct.mp3"
               }
             }
           }
@@ -158,14 +162,15 @@
       "type": "achievementScreen",
       "content":{
         "lessonTitle": "<div class='splashScreenText-wrapper'>لقدْ قُمتَ بِعملٍ رائعٍ!<div class='yellowText'> أعضاءُ الفريقِ:</div></div>",
+        "mainQuestionAudio": "audio/page9/audio9_1.mp3",
         "withAvatar":true,
         "withScore":false
     }
   },
     "Question_10": {
       "type": "splashScreen",
-      
       "content":{
+         "mainQuestionAudio": "audio/page10/audio10_1.mp3",
         "splashIndex":2,
         "lessonTitle": "<div class='splashScreenText-wrapper'>المرحلةُ الثَّانِيَةُ<div class='image-holder'><img alt='slide' class='toc-image' src='images/cog.png'></div>تَوْزِيعُ الْمَهَامِّ عَلَى الْفَرِيقِ</div>"
     }
@@ -179,7 +184,7 @@
           "image": "images/mcExplanation.png"
         },
         "mainQuestion": "ارسمْ خطًّا أسفلَ الفاعلِ في كلِّ جملةٍ منَ الجُمَلِ الآتيةِ:",
-        "mainQuestionAudio": "audio/page4/audio_4_1.mp3",
+        "mainQuestionAudio": "audio/page11/audio11_1.mp3",
         "rounds": [
           {
           "correctAnswersArray": [
@@ -212,11 +217,11 @@
           "continue": "next",
           "incorrect": {
             "text": "احذر، ليس هذا هو الفاعلُ. الفاعلُ هو مَنْ قامَ بالفعلِ. ",
-            "audio": "audio/page4/audio_4_incorrect.mp3"
+            "audio": "audio/page11/audio11_incorrect.mp3"
           },
           "correct": {
             "text": "أحسنتَ!",
-            "audio": "audio/page4/audio_4_correct.mp3"
+            "audio": "audio/page11/audio11_correct_1.mp3"
           }
         }
           },
@@ -255,11 +260,11 @@
           "continue": "next",
           "incorrect": {
             "text": "احذر، ليس هذا هو الفاعلُ. الفاعلُ هو مَنْ قامَ بالفعلِ. ",
-            "audio": "audio/page4/audio_4_incorrect.mp3"
+            "audio": "audio/page11/audio11_incorrect.mp3"
           },
           "correct": {
             "text": "أحسنتَ!",
-            "audio": "audio/page4/audio_4_correct.mp3"
+            "audio": "audio/page11/audio11_correct_2.mp3"
           }
         }
           },
@@ -295,20 +300,21 @@
           "continue": "next",
           "incorrect": {
             "text": "احذر، ليس هذا هو الفاعلُ. الفاعلُ هو مَنْ قامَ بالفعلِ. ",
-            "audio": "audio/page4/audio_4_incorrect.mp3"
+            "audio": "audio/page11/audio11_incorrect.mp3"
           },
           "correct": {
             "text": "أحسنتَ!",
-            "audio": "audio/page4/audio_4_correct.mp3"
+            "audio": "audio/page11/audio11_correct_3.mp3"
           }
         }
           }
            ]
       }
     },
-        "Question_12": {
+  "Question_12": {
       "type": "achievementScreen",
       "content":{
+        "mainQuestionAudio": "audio/page12/audio12_1.mp3",
         "lessonTitle": "<div class='splashScreenText-wrapper'>ممتاز لقد أنهيتَ المرحلةَ الثّانيةَ بنجاحٍ<div class='yellowText'> رصيد نقاطك الحالي هو:</div></div>",
         "withAvatar":false,
         "withScore":true
@@ -318,6 +324,7 @@
       "Question_13": {
       "type": "splashScreen",
       "content":{
+        "mainQuestionAudio": "audio/page13/audio13_1.mp3",
         "splashIndex":3,
         "lessonTitle": "<div class='splashScreenText-wrapper'> المرحلةُ الثَّالِثَةُ<div class='image-holder'><img alt='slide' class='toc-image' src='images/list.png'></div>مُتَابَعَةُ تَنْفِيذِ الْمَهَامِّ</div>"
     }
@@ -329,7 +336,7 @@
         "showResult": false,
         "mainQuestion": "اسحَبِ الأفعالَ وضعْها في الأماكنِ المناسبةِ:",
         "characterImage": "speed",
-        "mainQuestionAudio": "audio/page6/audio_6_1.mp3",
+        "mainQuestionAudio": "audio/page14/audio14_1.mp3",
         "withExplanationScreen": true,
         "explanationScreen": {
           "image": "images/dndExplanation.png"
@@ -350,24 +357,22 @@
             "feedback": {
               "incorrect": {
                 "text": "معَ الأسفِ… إجابتُك غيرُ دقيقة!",
-                "audio": "audio/page6/audio_6_incorrect.mp3"
+                "audio": "audio/page14/audio14_incorrect.mp3"
               },
               "correct": {
                 "text": "أحسنتَ! لقدْ صنّفتَ الجملَ بطريقةٍ صحيحةٍ!",
-                "audio": "audio/page6/audio_6_correct.mp3"
+                "audio": "audio/page14/audio14_correct_1.mp3"
               }
             }
           },
           {
-            "option_id": "2",  
-            "dropText": "@_@ صديقُنا عمرُ، @_@ المُعلِّمُ بوالد عمر للاطمئنانِ عليه، @_@ الطَّبيبُ عمرَ بالرَّاحةِ، قرر أصدقاءُ عمرَ تكوينَ فريقٍ لمساعدتِه، يحتاج الفريقُ مُتطوِّعينَ.",
+            "option_id": "1",  
+            "dropText": "<table><tr><td>@_@</td><td>@_@ </td><td>@_@</td></tr><tr><td> وزَّعَ</td><td>القائدُ</td><td>المهامَ</td></tr></table>",
             "draggableItems": [
-              { "id": "draggable-1", "type": "text", "value": "تغيب", "dataIndex": "object_1" },
-              { "id": "draggable-2", "type": "text", "value": "اتّصل", "dataIndex": "object_2" },
-              { "id": "draggable-3", "type": "text", "value": "نَصَحَ", "dataIndex": "object_3" }
+              { "id": "draggable-1", "type": "text", "value": "<div class='tickSign'></div>", "dataIndex": "object_3" }
             ],  
             "droppableItems": [
-              { "id": "droppable-1", "type": "text", "dataIndex": "object_1"},
+               { "id": "droppable-1", "type": "text", "dataIndex": "object_1"},
               { "id": "droppable-2", "type": "text", "dataIndex": "object_2"},
               { "id": "droppable-3", "type": "text", "dataIndex": "object_3"}
             ],                        
@@ -375,11 +380,35 @@
             "feedback": {
               "incorrect": {
                 "text": "معَ الأسفِ… إجابتُك غيرُ دقيقة!",
-                "audio": "audio/page6/audio_6_incorrect.mp3"
+                "audio": "audio/page14/audio14_incorrect.mp3"
               },
               "correct": {
                 "text": "أحسنتَ! لقدْ صنّفتَ الجملَ بطريقةٍ صحيحةٍ!",
-                "audio": "audio/page6/audio_6_correct.mp3"
+                "audio": "audio/page14/audio14_correct_2.mp3"
+              }
+            }
+          },
+        
+                  {
+            "option_id": "1",  
+            "dropText": "<table><tr><td>@_@</td><td>@_@ </td><td>@_@</td></tr><tr><td> وزَّعَ</td><td>القائدُ</td><td>المهامَ</td></tr></table>",
+            "draggableItems": [
+              { "id": "draggable-1", "type": "text", "value": "<div class='tickSign'></div>", "dataIndex": "object_3" }
+            ],  
+            "droppableItems": [
+               { "id": "droppable-1", "type": "text", "dataIndex": "object_1"},
+              { "id": "droppable-2", "type": "text", "dataIndex": "object_2"},
+              { "id": "droppable-3", "type": "text", "dataIndex": "object_3"}
+            ],                        
+            "submitLimit": 2,
+            "feedback": {
+              "incorrect": {
+                "text": "معَ الأسفِ… إجابتُك غيرُ دقيقة!",
+                "audio": "audio/page14/audio14_incorrect.mp3"
+              },
+              "correct": {
+                "text": "أحسنتَ! لقدْ صنّفتَ الجملَ بطريقةٍ صحيحةٍ!",
+                "audio": "audio/page14/audio14_correct_3.mp3"
               }
             }
           }
@@ -389,6 +418,7 @@
     "Question_15": {
       "type": "achievementScreen",
       "content":{
+        "mainQuestionAudio": "audio/page15/audio15_1.mp3",
         "lessonTitle": "<div class='splashScreenText-wrapper'>أحسنتَ! لقد أَنهيتَ المرحلةَ الثّالثةَ بنجاحٍ <div class='yellowText'> رصيد نقاطك الحالي هو:</div></div>",
         "withAvatar":false,
         "withScore":true
@@ -399,7 +429,7 @@
       "content": {
         "gameId":4,
         "mainQuestion": "حدِّدِ الهديّةَ ثمَّ انقرْ على زرِّ شراءٍ.",
-        "mainQuestionAudio": "audio/page4/audio_4_1.mp3",
+        "mainQuestionAudio": "audio/page16/audio16_1.mp3",
         "OptionsArray": [
             { "id": 1,
               "text": "<img alt='slide' class='toc-image' src='images/Elements_toy01.png'>",
@@ -429,7 +459,7 @@
         "feedback": {
           "incorrect": {
             "text": "هذهِ الهديّةُ تحتاجُ إلى رَصيدِ نقاطٍ أكبرَ<br>يمكنكَ إعادة المُحاكاةِ والحصول على نقاطٍ أكبرَ لتتمكّنَ من شراءِ هذهِ الهديّةِ. ",
-            "audio": "audio/page4/audio_4_incorrect.mp3"
+            "audio": "audio/page16/audio16_incorrect.mp3"
           },
           "correct": {
             "text": "أحسنتَ!",

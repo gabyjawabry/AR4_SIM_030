@@ -249,6 +249,10 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
 
 		setFeedbackParams(feedbackData);
 		return { feedbackData };
+
+ pageContext.studentGrade===0 ?setAudioURL({id: "drop", url:  content.hintAudio, type: "hint"}): null;
+
+
 	};
 
 	const goToNextRound = () => {
@@ -265,9 +269,7 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
 
 			droppableRefs.current = [];
 		} else {
-			const swiper =
-				document.querySelector('#container-swiper')?.swiper;	
-
+			const swiper =document.querySelector('#container-swiper')?.swiper;	
 			if (swiper) swiper.slideNext();
 		}
 	};

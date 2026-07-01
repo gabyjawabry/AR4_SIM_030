@@ -69,13 +69,18 @@ const checkAnswers = () => {
       ? content.feedback.correct.text
       : content.feedback.incorrect.text,
     audio: isCorrect
-      ? content.feedback.correct.audio
-      : content.feedback.incorrect.audio,
-    sfx: isCorrect ? CorrectSFX : IncorrectSFX,
+      ?""
+      : content.feedback.incorrect.audio
   });
 
   if (isCorrect) {
     setCorrectPurchase(true);
+  } else{
+     setAudioURL({
+      id: "incorrectSFX",
+      url: content.feedback.incorrect.audio,
+      type: "incorrectSFX",
+    });
   }
 };
 useEffect(() => {
