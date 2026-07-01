@@ -67,15 +67,9 @@ const SplashScreen = ({parameters}) => {
       setbackgroundVideoData(anim);
     }  
 
-    if (isVisible)  {
-        setStartAnimation(true);  
-      loadBackgroundVideo();
-    }
-
-
-
-      console.log(avatarSelected);
     if (isVisible) {      
+      setStartAnimation(true);  
+      loadBackgroundVideo();
       controls.start("animate");
     }else{
       controls.start("initial");

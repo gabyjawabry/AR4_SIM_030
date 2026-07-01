@@ -57,8 +57,9 @@ const LessonPage = () => {
 
   const setAudioURLFromWidget = (audioData, onEndedCallback) => {
 
-    stopAllVideos();
-
+    // stopAllVideos();
+    if(audioData?.type != 'sfx')
+      stopAllVideos();
     const audio = audioElement.current;
     audio.id = audioData.id;
     if (!audio) return;

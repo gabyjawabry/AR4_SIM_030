@@ -229,12 +229,8 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
 			}, 1500);
 		}
 		}
-
 		const newGrade = isCorrect ? pageContext.studentGrade + 5: Math.max(0, pageContext.studentGrade - 5);
 		pageContext.setStudentGrade(newGrade);
-
-
-		
 		feedbackData = {
 			class: isCorrect ? "correct" : "incorrect",
 			message: isCorrect ? roundData.feedback?.correct?.text : roundData.feedback?.incorrect?.text,
@@ -249,9 +245,6 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
 
 		setFeedbackParams(feedbackData);
 		return { feedbackData };
-
-
-
 	};
 
 	const goToNextRound = () => {
