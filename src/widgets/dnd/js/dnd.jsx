@@ -243,14 +243,13 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
 			result: isCorrect ? "correct" : "incorrect",
 			startTime: startTime.current,
 			isCorrect: isCorrect,
-			audio: isCorrect ? roundData.feedback?.correct?.audio : roundData.feedback?.incorrect?.audio,
+			audio: isCorrect? roundData.feedback?.correct?.audio : newGrade === 0 ? content.hintAudio : roundData.feedback?.incorrect?.audio,
 			sfx: isCorrect ? CorrectSFX : IncorrectSFX
 		};
 
 		setFeedbackParams(feedbackData);
 		return { feedbackData };
 
- pageContext.studentGrade===0 ?setAudioURL({id: "drop", url:  content.hintAudio, type: "hint"}): null;
 
 
 	};
@@ -281,6 +280,9 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
 						<ShowScoring />
 					</motion.div> 
 					<div className="dnd-game-container">
+						{pageContext.studentGrade===0 ? (
+				    		<HintButton/>
+			   			 ):<></>}
 						<motion.div className="mainQuestionHolderDiv">
 						<motion.div className="mainQuestionHolder" variants={getAnimation("slideDown", 0.6, 0.4)} initial="initial" animate={controls}>
 								<Row className="audio-help-container mb-0 mx-0">
@@ -313,9 +315,6 @@ const dnd = ({  parameters, index, handleCheckAnswer }) => {
 							</motion.div>
 						) : (
 						<motion.div className="gameMainWrapper" variants={getAnimation("blurIn", 0.8, 0)} initial="initial" animate={controls}>
-						{pageContext.studentGrade===0 ? (
-				    		<HintButton/>
-			   			 ):<></>}
 						<motion.div className="text-row" variants={getAnimation("scaleIn", 0.6, 0.7)} initial="initial" animate={controls}>
 								<motion.div className="text-col w-10" variants={getAnimation("slideRight", 0.6, 1.1)} initial="initial" animate={controls}>
 									<div className="dnd-content">

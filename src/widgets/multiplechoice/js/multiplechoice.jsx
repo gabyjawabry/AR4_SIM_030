@@ -171,7 +171,7 @@ const MultipleChoice = (props) => {
       canRetry: !isCorrect && pageContext.studentGrade > 0,
       result: isCorrect ? "correct" : "incorrect",
       isCorrect: isCorrect,
-      audio: isCorrect ? roundData.feedback?.correct?.audio : roundData.feedback?.incorrect?.audio,
+			audio: isCorrect? roundData.feedback?.correct?.audio : newGrade === 0 ? content.hintAudio : roundData.feedback?.incorrect?.audio,
       sfx: isCorrect ? CorrectSFX : IncorrectSFX
     };
 

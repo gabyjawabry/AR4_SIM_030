@@ -179,6 +179,7 @@
       "type": "multiplechoice",
       "content": {
         "gameId":2,
+        "hintAudio": "audio/page8/audio_8_hint.mp3",
         "withExplanationScreen": true,
          "explanationScreen": {
           "image": "images/mcExplanation.png"
@@ -334,6 +335,7 @@
       "content": {
         "gameId":3,
         "showResult": false,
+        "hintAudio": "audio/page8/audio_8_hint.mp3",
         "mainQuestion": "اسحَبِ الأفعالَ وضعْها في الأماكنِ المناسبةِ:",
         "characterImage": "speed",
         "mainQuestionAudio": "audio/page14/audio14_1.mp3",
