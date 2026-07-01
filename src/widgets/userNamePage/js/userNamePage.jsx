@@ -3,28 +3,31 @@ import { motion, useAnimation } from "framer-motion";
 import { PageContext } from "../../../container/js/utilities/context";
 import { getAnimation , useIsVisible} from "../../../container/js/utilities/utilities";
 import { Button } from "react-bootstrap";
+import AudioWidget from '../../../container/js/audioWidget';
 import { getAnimationAsync } from '../../../container/js/utilities/helper.jsx';
+import { Col, Row } from 'react-bootstrap';
 import "../css/userNamePage.scss";
 
 const UserNamePage = (props) => {
   const content = props?.parameters?.content || {};
   const pageContext = useContext(PageContext);
-  const { setUserName } = useContext(PageContext);
+  const { setUserName, setAudioURL, stopAudio } = useContext(PageContext);
   const containerRef = useRef(null);
-  
+  const audioData = {
+    url: props?.parameters?.mainQuestionAudio,
+    autoplay: true,
+    id: props?.parameters?.id || 0
+  };
   const [name, setName] = useState("");
   const [animationsCompleted, setAnimationsCompleted] = useState(false);
   const controls = useAnimation();
   const isVisible = useIsVisible(containerRef);
   const handleSubmit = (e) => {
+     stopAudio();
     e.preventDefault();
-
     const trimmedName = name.trim();
-
     if (!trimmedName) return;
-
     setUserName(trimmedName);
-
     const swiper = document.querySelector('#container-swiper')?.swiper;
     if (swiper) swiper.slideTo(2, 1);
   };
@@ -42,6 +45,11 @@ const UserNamePage = (props) => {
               <div  className="mainTextInputHolder">
                 <div  className="textInputHolder">
                 <div className="questionText">
+                  <Row className="cap-help-container mb-0 mx-3">
+                    <Col className="d-flex align-items-center justify-content-start col-1 p-0">
+                      <AudioWidget data={audioData} audioType="main-question" />
+                    </Col>
+                  </Row>
                اكتبْ اسمَكَ لِتبدأَ مهمّةَ القيادة، ثمَّ انقرْ على زرِّ تأكيدٍ:
               </div>
 
@@ -73,11 +81,7 @@ const UserNamePage = (props) => {
                 >
                   تأكيد
                 </Button>
-                </div>
-
-             
-
-
+                </div>          
         </motion.div>
       {/* </div> */}
     </div>

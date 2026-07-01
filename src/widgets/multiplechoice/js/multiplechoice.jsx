@@ -20,7 +20,7 @@ import IncorrectSFX from '../sounds/gauge_incorrect.mp3';
 
 const MultipleChoice = (props) => {
   const pageContext = useContext(PageContext);
-  const setAudioURL = pageContext.setAudioURL;
+  // const setAudioURL = pageContext.setAudioURL;
   const parameters = props.parameters || {};
   const content = parameters?.content || {};
   const containerRef = useRef(null);
@@ -41,7 +41,7 @@ const MultipleChoice = (props) => {
   const feedbackVideoRef = useRef();
   const [backgroundVideoData, setBackgroundVideoData] = useState(null);
   const backgroundVideoRef = useRef();
-  const { avatarSelected } =useContext(PageContext);
+  const { avatarSelected, setAudioURL, stopAudio  } =useContext(PageContext);
   const [withExplanationScreen, setWithExplanationScreen] = useState(content.withExplanationScreen || false);
   const startTime = useRef(null);
 
@@ -66,7 +66,6 @@ const MultipleChoice = (props) => {
     }));
 
     const mergedArray = [...mcCorrectOptions, ...mcWrongOptions];
-
     const result = mergedArray
       .sort((a, b) => a.index - b.index)
       .map((item, idx) => ({
@@ -76,16 +75,11 @@ const MultipleChoice = (props) => {
         correct: item.correct,
       }));
 
-  setMcOptions(result);
-
-  setSelected(null);
+    setMcOptions(result);
+    setSelected(null);
     setSubmitted(false);
     setChecked(false);
     setFeedbackParams({});
-
-
-
-
     
   }, [currentRound]);
 
@@ -98,9 +92,8 @@ const MultipleChoice = (props) => {
 
 
   const goToNextRound = () => {
-    const isLastRound =
-      currentRound === content.rounds.length - 1; 
-
+    const isLastRound =currentRound === content.rounds.length - 1; 
+    stopAudio();
     if (!isLastRound) {
       setCurrentRound(prev => prev + 1);  
 
@@ -237,10 +230,10 @@ const MultipleChoice = (props) => {
 					<ShowAvatarAndName />
 					<ShowScoring />
 				</motion.div> 
- <div className="mc-game-container">
-         {pageContext.studentGrade===0 ? (
-				    <HintButton/>
-			    ):<></>}
+        <div className="mc-game-container">
+          {pageContext.studentGrade===0 ? (
+              <HintButton/>
+            ):<></>}
           <motion.div className="mainQuestionHolderDiv">
           <motion.div className="mainQuestionHolder" variants={getAnimation("slideDown", 0.6, 0.4)} initial="initial" animate={controls}>
             <Row className="audio-help-container mb-0 mx-0">
@@ -256,18 +249,18 @@ const MultipleChoice = (props) => {
             <motion.div className="text-col-1 w-10" variants={getAnimation("slideRight", 0.6, 1.1)} initial="initial" animate={controls}>
               <div className="explanation-screen">
                 <img src={content.explanationScreen.image} alt="Explanation" className="img-fluid"/>
-            <div className="startLessonBtnHolder">
-                <button className="startLessonBtn"
-                  onClick={() => {
-                     setWithExplanationScreen(false);
-                     requestAnimationFrame(() => {
-                       controls.start("animate");
-                     });
-                   }}
-                >
-                  استمر
-                </button>
-              </div>
+                <div className="startLessonBtnHolder">
+                  <button className="startLessonBtn"
+                    onClick={() => {
+                      setWithExplanationScreen(false);
+                      requestAnimationFrame(() => {
+                        controls.start("animate");
+                      });
+                    }}
+                  >
+                    استمر
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>

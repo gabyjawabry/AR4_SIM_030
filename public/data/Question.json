@@ -346,7 +346,7 @@
         "rounds": [
           {
             "option_id": "1",  
-            "dropText": "<table><tr><td>@_@</td><td>@_@ </td><td>@_@</td></tr><tr><td> وزَّعَ</td><td>القائدُ</td><td>المهامَ</td></tr></table>",
+            "dropText": "<table><tr><td>@_@</td><td>@_@ </td><td>@_@</td></tr><tr><td> وزَّعَ</td><td>القائدُ</td><td>المهامَ.</td></tr></table>",
             "draggableItems": [
               { "id": "draggable-1", "type": "text", "value": "<div class='tickSign'></div>", "dataIndex": "object_3" }
             ],  
@@ -368,8 +368,8 @@
             }
           },
           {
-            "option_id": "1",  
-            "dropText": "<table><tr><td>@_@</td><td>@_@ </td><td>@_@</td></tr><tr><td> وزَّعَ</td><td>القائدُ</td><td>المهامَ</td></tr></table>",
+            "option_id": "2",  
+            "dropText": "<table><tr><td>@_@</td><td>@_@ </td><td>@_@</td></tr><tr><td>سَجَّلَ</td><td>هاشمٌ</td><td>الدّروسَ.</td></tr></table>",
             "draggableItems": [
               { "id": "draggable-1", "type": "text", "value": "<div class='tickSign'></div>", "dataIndex": "object_3" }
             ],  
@@ -391,9 +391,9 @@
             }
           },
         
-                  {
-            "option_id": "1",  
-            "dropText": "<table><tr><td>@_@</td><td>@_@ </td><td>@_@</td></tr><tr><td> وزَّعَ</td><td>القائدُ</td><td>المهامَ</td></tr></table>",
+          {
+            "option_id": "3",  
+            "dropText": "<table><tr><td>@_@</td><td>@_@ </td><td>@_@</td></tr><tr><td>كَتَبَتْ</td><td>هندُ</td><td>الرّسالةَ.</td></tr></table>",
             "draggableItems": [
               { "id": "draggable-1", "type": "text", "value": "<div class='tickSign'></div>", "dataIndex": "object_3" }
             ],  

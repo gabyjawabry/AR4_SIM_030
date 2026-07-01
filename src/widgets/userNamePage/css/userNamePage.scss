@@ -37,7 +37,9 @@
 span.typeNameHolderText {
     margin-left: 30px;
 }
-
+.questionText {
+    display: flex;
+}
 .unp-component-container{
     background-image: url(../images/background_01.png);
     background-repeat: no-repeat;

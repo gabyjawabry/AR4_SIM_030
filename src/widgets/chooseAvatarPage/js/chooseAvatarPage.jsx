@@ -16,7 +16,7 @@ const chooseAvatarPage = (props) => {
   const { setAvatarSelected } = useContext(PageContext);
   const [selected, setSelected] = useState(null);
   const [animationsCompleted, setAnimationsCompleted] = useState(false);
-  const { setAudioURL } = useContext(PageContext);
+  const { setAudioURL, stopAudio } = useContext(PageContext);
   const controls = useAnimation();
   const isVisible = useIsVisible(containerRef);
   const audioData = {
@@ -25,6 +25,7 @@ const chooseAvatarPage = (props) => {
     id: props?.parameters?.id || 0
   };
   const handleSubmit = () => {
+    stopAudio();
     const swiper = document.querySelector('#container-swiper')?.swiper;
     if (swiper) swiper.slideTo(4, 1);
   };
@@ -39,7 +40,7 @@ const chooseAvatarPage = (props) => {
   return (
     <div className="cap-component-container component-container w-100 h-100 d-flex flex-column align-items-center justify-content-center">
         <motion.div ref={containerRef}  className="mainAvatarHolder d-flex flex-column " variants={getAnimation("blurIn", 0.8, 1)} initial="initial" animate={controls}>
-              <div  className="mainTextHolde">
+              <div  className="mainTextHolder">
               <Row className="cap-help-container mb-0 mx-3">
               <Col className="d-flex align-items-center justify-content-start col-1 p-0">
                 <AudioWidget data={audioData} audioType="main-question" />
@@ -82,8 +83,7 @@ const chooseAvatarPage = (props) => {
                         </div>   
 
 
-    <div className="next-screen-btn-holder  w-100 h-100 d-flex flex-column align-items-center justify-content-center">
-
+              <div className="next-screen-btn-holder  w-100 h-100 d-flex flex-column align-items-center justify-content-center">
                 <Button
                   type="button"
                   className="next-screen-btn"
