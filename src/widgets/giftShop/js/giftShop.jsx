@@ -1,11 +1,8 @@
 import { useState, useEffect, useRef, useContext } from "react";
+import { FormattedMessage } from "react-intl";
 import "../css/giftShop.scss";
 import { motion, useAnimation } from "framer-motion";
-import {
-  getAnimation,
-  ShowCorrectStars,
-  useIsVisible,
-} from "../../../container/js/utilities/utilities";
+import { getAnimation, ShowCorrectStars, useIsVisible } from "../../../container/js/utilities/utilities";
 
 import { Col, Row } from "react-bootstrap";
 import AudioWidget from "../../../container/js/audioWidget";
@@ -43,55 +40,46 @@ const GiftShop = (props) => {
     id: parameters.id || 0,
   };
 
-  // Reset on mount / content change
   useEffect(() => {
     setSelected(null);
     setSubmitted(false);
     setChecked(false);
   }, [content]);
 
-const checkAnswers = () => {
-  if (selected === null) return;
+  const checkAnswers = () => {
+    if (selected === null) return;
 
-  const selectedGift = gsOptions.find((item) => item.id === selected);
-  if (!selectedGift) return;
+    const selectedGift = gsOptions.find((item) => item.id === selected);
+    if (!selectedGift) return;
 
-  const requiredScore = Number(selectedGift.index);
-  const userScore = Number(studentGrade);
-  const isCorrect = userScore >= requiredScore;
+    const requiredScore = Number(selectedGift.index);
+    const userScore = Number(studentGrade);
+    const isCorrect = userScore >= requiredScore;
 
-  setSubmitted(true);
-  setChecked(true);
+    setSubmitted(true);
+    setChecked(true);
 
-  setFeedbackParams({
-    class: isCorrect ? "correct" : "incorrect",
-    message: isCorrect
-      ? content.feedback.correct.text
-      : content.feedback.incorrect.text,
-    audio: isCorrect
-      ?""
-      : content.feedback.incorrect.audio
-  });
-
-  if (isCorrect) {
-    setCorrectPurchase(true);
-  } else{
-     setAudioURL({
-      id: "incorrectSFX",
-      url: content.feedback.incorrect.audio,
-      type: "incorrectSFX",
+    setFeedbackParams({
+      class: isCorrect ? "correct" : "incorrect",
+      message: isCorrect ? content.feedback.correct.text : content.feedback.incorrect.text,
+      audio: isCorrect ? "" : content.feedback.incorrect.audio
     });
-  }
-};
-useEffect(() => {
-  setSelected(null);
-  setSubmitted(false);
-  setChecked(false);
-  setCorrectPurchase(false);
-  setFeedbackParams(null);
-}, [content]);
 
-  // Animation + video load
+    if (isCorrect) {
+      setCorrectPurchase(true);
+    } else{
+      setAudioURL({ id: "incorrectSFX", url: content.feedback.incorrect.audio, type: "incorrectSFX" });
+    }
+  };
+
+  useEffect(() => {
+    setSelected(null);
+    setSubmitted(false);
+    setChecked(false);
+    setCorrectPurchase(false);
+    setFeedbackParams(null);
+  }, [content]);
+
   useEffect(() => {
     if (isVisible) {
       startTime.current = Date.now();
@@ -114,13 +102,7 @@ useEffect(() => {
 
   return (
     <div className="gs-container w-100 component-container">
-      <motion.div
-        ref={containerRef}
-        className="gs-wrapper w-100 component-content"
-        variants={getAnimation("blurIn", 0.8, 0)}
-        initial="initial"
-        animate={controls}
-      >
+      <motion.div ref={containerRef} className="gs-wrapper w-100 component-content" variants={getAnimation("blurIn", 0.8, 0)} initial="initial" animate={controls}>
         <motion.div className="avatarAndScore" variants={getAnimation("flipX", 0.6, 0.4)}>
           <ShowAvatarAndName />
           <ShowScoring />
@@ -139,10 +121,7 @@ useEffect(() => {
         </motion.div>
 
         <div className="gs-game-holder">
-          <motion.div
-            className="gs-options"
-            variants={getAnimation("slideLeft", 0.6, 0.9)}
-          >
+          <motion.div className="gs-options" variants={getAnimation("slideLeft", 0.6, 0.9)}>
             {gsOptions.map((opt) => {
               const isSelected = selected === opt.id;
               const requiredScore = Number(opt.index);
@@ -151,29 +130,25 @@ useEffect(() => {
               const isWrong = submitted && isSelected && userScore < requiredScore;
 
               return (
-                <button
-                  key={opt.id}
-                  className={`gs-option
+                <button key={opt.id}
+                  className={
+                    `gs-option
                     ${checked ? "checked" : ""}
                     ${isSelected ? "selected" : ""}
                     ${isCorrect ? "correct" : ""}
                     ${isWrong ? "incorrect" : ""}
-                    ${correctPurchase ? "disabled" : ""}
-                  `}
+                    ${correctPurchase ? "disabled" : ""}`
+                  }
                   onClick={() => {
-                     if (correctPurchase) return;
+                    if (correctPurchase) return;
                     setSelected(opt.id);
                     setSubmitted(false);
                     setChecked(false);
                     setFeedbackParams(null);
-                    setAudioURL({
-                      id: "optionClick",
-                      url: ButtonClickSFX,
-                      type: "sfx",
-                    });
+                    setAudioURL({ id: "optionClick", url: ButtonClickSFX, type: "sfx" });
                   }}
                 >
-                  {<div className="shop_gifts" dangerouslySetInnerHTML={{ __html: opt.text }} />}
+                  <div className="shop_gifts" dangerouslySetInnerHTML={{ __html: opt.text }} />
 
                  {submitted && isSelected && userScore >= Number(opt.index) && (
                     <>
@@ -187,51 +162,35 @@ useEffect(() => {
               );
             })}
           </motion.div>
-
-  
         </div>
-        <div className="buy-gift-feedback-container">
-            {feedbackParams && (
-              <motion.div className={`${feedbackParams.class} feedback-banner`} {...getAnimation("slideUp", 0.6, 0)}>
-                <div className="feedback-text" dangerouslySetInnerHTML={{ __html: feedbackParams.message }} />
-              </motion.div>
-            )}
-      </div>
 
+        <div className="buy-gift-feedback-container">
+          {feedbackParams && (
+            <motion.div className={`${feedbackParams.class} feedback-banner`} {...getAnimation("slideUp", 0.6, 0)}>
+              <div className="feedback-text" dangerouslySetInnerHTML={{ __html: feedbackParams.message }} />
+            </motion.div>
+          )}
+        </div>
       </motion.div>
       <div className="buy-gift-btn-holder">
-        <Button
-          type="button"
-          className="buy-gift-btn"
+        <Button type="button" className="buy-gift-btn"
+          disabled={!selected}
           onClick={() => {
-    if (correctPurchase) {
-       const swiper =
-        document.querySelector("#container-swiper")
-          ?.swiper; 
-
-      if (swiper) {
-        swiper.slideNext();
-      }
-      return;
-    }
-
-    checkAnswers();
-  }}
-         disabled={!selected}
+            if (correctPurchase) {
+              const swiper = document.querySelector("#container-swiper")?.swiper; 
+              if (swiper) {
+                swiper.slideNext();
+              }
+              return;
+            }
+            checkAnswers();
+          }}
         >
-         {correctPurchase ? "استمر" : "شراء"}
+         { correctPurchase ? <FormattedMessage id='feedback.continue' /> : <FormattedMessage id='feedback.buy' /> }
         </Button>
       </div>
       {backgroundVideoData && (
-        <video
-          ref={backgroundVideoRef}
-          className="videoSplashScreen"
-          src={backgroundVideoData}
-          poster={`images/mission1_intro_${avatarSelected}.png`}
-          autoPlay
-          muted
-          playsInline
-        />
+        <video ref={backgroundVideoRef} className="videoSplashScreen" src={backgroundVideoData} poster={`images/mission1_intro_${avatarSelected}.png`} autoPlay muted playsInline />
       )}
     </div>
   );

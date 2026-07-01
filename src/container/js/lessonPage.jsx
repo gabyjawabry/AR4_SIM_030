@@ -9,9 +9,10 @@ import { PageData, LabelsData } from './utilities/helper';
 import { useEventSender } from './utilities/logging';
 import LessonSlide from './lessonSlide';
 
-const LessonPage = () => {
+const LessonPage = ({appCurrentState}) => {
   const audioElement = useRef(null);
   const audioEndedCallbackRef = useRef(null);
+  const audioEndedHandlerRef = useRef(null);
   const [tocState, setTocState] = useState([]);
   const [userName, setUserName] = useState("");
   const [avatarSelected, setAvatarSelected] = useState(null);
@@ -19,6 +20,7 @@ const LessonPage = () => {
   const locale = PageData.page.language;
   const sendEvent = useEventSender();
   const simulationStartTime = useRef(null);
+  const [audioWidgetAudioData, setAudioWidgetAudioData] = useState(null);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -42,27 +44,29 @@ const LessonPage = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const handleCheckAnswer = (payload = {}) => {
-    const { index, isCorrect } = payload;
+  // const handleCheckAnswer = (payload = {}) => {
+  //   const { index, isCorrect } = payload;
 
-    if (index === undefined) return; // safety guard
+  //   if (index === undefined) return;
 
-    setTocState(prev => ({
-      ...prev,
-      [index]: {
-        status: isCorrect ? "correct" : "incorrect"
-      }
-    }));
-  }; 
+  //   setTocState(prev => ({
+  //     ...prev,
+  //     [index]: {
+  //       status: isCorrect ? "correct" : "incorrect"
+  //     }
+  //   }));
+  // };  
 
   const setAudioURLFromWidget = (audioData, onEndedCallback) => {
-
-    // stopAllVideos();
     if(audioData?.type != 'sfx')
       stopAllVideos();
+
     const audio = audioElement.current;
-    audio.id = audioData.id;
     if (!audio) return;
+
+    if (audioEndedHandlerRef.current) {
+      audio.removeEventListener("ended", audioEndedHandlerRef.current);
+    }
 
     const isPlaying =
       audio.currentTime > 0 &&
@@ -71,10 +75,7 @@ const LessonPage = () => {
       audio.readyState > audio.HAVE_CURRENT_DATA;
 
     try {
-      // Remove old listener
-      if (audioEndedCallbackRef.current) {
-        audio.removeEventListener("ended", audioEndedCallbackRef.current);
-      }
+      let updatedAudioData = { ...audioData };
 
       if (audioData?.url) {
         if (audio.src.includes(audioData.url)) {
@@ -82,16 +83,32 @@ const LessonPage = () => {
           if(audioData?.type == 'sfx'){
             audio.currentTime = 0;
             audio.play();
+            updatedAudioData.playing = true;
           }else{
-            audio.paused ? audio.play() : audio.pause();
+            if(audio.paused) {
+              audio.play(); 
+              updatedAudioData.playing = true;
+            }else { 
+              audio.pause();
+              updatedAudioData.playing = false;
+            }
           }
+
+          // Call setAudioWidgetAudioData only for same URL case
+          setAudioWidgetAudioData(updatedAudioData);
         } else {
           audio.pause();
           audio.currentTime = 0;
 
           setTimeout(() => {
+            audio.id = audioData.id;
+            audio.setAttribute('data-type', audioData.type);
             audio.src = audioData.url;
             audio.play().catch(() => {}); // prevent crash on autoplay block
+            setAudioWidgetAudioData({
+              ...updatedAudioData,
+              playing: true
+            });
           }, 10);
         }
       } else {
@@ -99,13 +116,21 @@ const LessonPage = () => {
           audio.pause();
           audio.currentTime = 0;
         }
+        setAudioWidgetAudioData(null);
+        return;
       }
 
-      // Add new ended callback
-      if (onEndedCallback) {
-        audioEndedCallbackRef.current = onEndedCallback;
-        audio.addEventListener("ended", onEndedCallback);
-      }
+      // Setup ended listener for all audio cases
+      const handleAudioEnded = () => {
+        setAudioWidgetAudioData(prev => ({
+          ...prev,
+          playing: false
+        }));
+        if(onEndedCallback) onEndedCallback();
+      };
+
+      audioEndedHandlerRef.current = handleAudioEnded;
+      audio.addEventListener("ended", handleAudioEnded);
 
     } catch (error) {
       console.log(error);
@@ -113,6 +138,8 @@ const LessonPage = () => {
   };
 
   const onAudioPlay = (e) => {
+    if(e.currentTarget.getAttribute('data-type') === 'sfx') return;
+
     sendEvent('play', { 
       mediaId: e.currentTarget.id, 
       mediaType: 'audio', 
@@ -122,6 +149,8 @@ const LessonPage = () => {
   }
 
   const onAudioPause = (e) => {
+    if(e.currentTarget.getAttribute('data-type') === 'sfx') return;
+
     sendEvent('pause', { 
       mediaId: e.currentTarget.id, 
       mediaType: 'audio', 
@@ -141,9 +170,9 @@ const LessonPage = () => {
       audio.readyState > audio.HAVE_CURRENT_DATA;
 
     // remove listener
-    if (audioEndedCallbackRef.current) {
-      audio.removeEventListener("ended", audioEndedCallbackRef.current);
-      audioEndedCallbackRef.current = null;
+    if (audioEndedHandlerRef.current) {
+      audio.removeEventListener("ended", audioEndedHandlerRef.current);
+      audioEndedHandlerRef.current = null;
     }
 
     if (isPlaying) {
@@ -180,25 +209,22 @@ const LessonPage = () => {
         tocState: tocState,
         setTocState: setTocState,
         simulationStartTime: simulationStartTime,
-        setSimulationStartTime: setSimulationStartTime
+        setSimulationStartTime: setSimulationStartTime,
+        appCurrentState: appCurrentState,
+        audioWidgetAudioData: audioWidgetAudioData
       }}
     >
       <IntlProvider locale={locale} messages={LabelsData[locale]} defaultLocale="ar">
         {PageData.page ? (
           <Container fluid className="h-100 p-0 d-flex flex-column">
-            
+
             <audio ref={audioElement} preload="auto" onPause={onAudioPause} onPlay={onAudioPlay}/>
 
             <Container fluid className="slider-wrapper px-0">
               <Row className="h-100 w-100 mx-0 position-relative">
                 <Col className="p-0 h-100 position-relative">
                   {PageData.page.content?.[0]?.component_id && (
-                    <LessonSlide
-                    id={PageData.page.content[0].component_id}
-                    tocState={tocState}
-                      handleCheckAnswer={handleCheckAnswer}
-                      
-                    />
+                    <LessonSlide id={PageData.page.content[0].component_id} tocState={tocState} />
                   )}
                 </Col>
               </Row>

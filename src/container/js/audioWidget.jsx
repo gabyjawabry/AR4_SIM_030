@@ -1,15 +1,17 @@
-import React, { useContext } from 'react';
-// import { VolumeUpRounded } from '@mui/icons-material';
+import React, { useContext, useState, useEffect} from 'react';
 import VolumeUpRounded from "../images/icons/audio.svg?react";
+import VolumeDownRounded from "../images/icons/audio_down.svg?react";
 import { PageContext } from './utilities/context';
 import { Button, Col } from 'react-bootstrap';
 import '../css/audioWidget.scss';
 
 const AudioWidget = (props) => {
-  const { setAudioURL } = useContext(PageContext);
+  const { setAudioURL, audioWidgetAudioData } = useContext(PageContext);
   const { data, audioType } = props;
-
   const autoplayAudio = data.autoplay;
+
+  const audioPlaying = audioWidgetAudioData ? audioWidgetAudioData.id === data.id && audioWidgetAudioData.playing : false; 
+
   const handlePlay = () => {
     const audioData = {
       id: data.id,
@@ -28,7 +30,7 @@ const AudioWidget = (props) => {
       data-id={data.id || 0}
     >
       <Button className="cursor-pointer btn p-0" onClick={handlePlay}>
-        <VolumeUpRounded style={{ width: "50px", height: "50px" }} />
+        {audioPlaying ? <VolumeUpRounded style={{ width: "50px", height: "50px" }} /> : <VolumeDownRounded style={{ width: "50px", height: "50px" }} />}
       </Button>
     </Col>
   );

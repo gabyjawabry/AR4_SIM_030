@@ -1,6 +1,8 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState, useEffect, useContext } from 'react';
 import { LessonQuestion, LessonSlide } from './helper';
 import { motion } from "framer-motion";
+import { PageContext } from "./context";
+import { SendAppState } from './logging';
 import CorrectStars1 from "../../images/correct-stars-1.svg?react";
 import CorrectStars2 from "../../images/correct-stars-2.svg?react";
 import CorrectStars3 from "../../images/correct-stars-3.svg?react";
@@ -408,4 +410,36 @@ export const useIsVisible = (ref) => {
     return () => observer.disconnect();
   }, []);
   return visible;
+};
+export const getWidgetState = (pageContext, widgetId) => {
+  const appState = pageContext?.appCurrentState;
+  if (!appState) return null;
+  const rootState = appState.current ?? appState;
+  return rootState?.currentState[widgetId] ?? null;
+};
+export const saveWidgetState = (pageContext, widgetId, state, sendAppState = false) => {
+  const appState = pageContext?.appCurrentState;
+  if (!appState) return;
+  const rootState = appState.current ?? appState;
+  if (!rootState) return;
+  rootState.currentState[widgetId] = { ...(rootState.currentState[widgetId] || {}), ...state };
+  if (sendAppState) {
+    SendAppState('appState', rootState);
+  }
+};
+export const getAppState = (pageContext) => {
+  const appState = pageContext?.appCurrentState;
+  if (!appState) return null;
+  const rootState = appState.current ?? appState;
+  return rootState ?? null;
+};
+export const saveAppState = (pageContext, state, sendAppState = false) => {
+  const appState = pageContext?.appCurrentState;
+  if (!appState) return;
+  const rootState = appState.current ?? appState;
+  if (!rootState) return;
+  Object.assign(rootState, state);
+  if (sendAppState) {
+    SendAppState('appState', rootState);
+  }
 };

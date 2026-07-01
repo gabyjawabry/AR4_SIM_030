@@ -32,20 +32,16 @@ const AchievementScreen = ({parameters}) => {
       });
     }
 
-    return () => {
-      stopAudio();
-    };
+    // return () => {
+    //   stopAudio();
+    // };
   }, [content.audio, content.achievement, setAudioURL, stopAudio]);
 
   return (
-    <motion.div
-      className="achievementScreen-container p-0 m-0 h-100 w-100"
-      {...getAnimation("fade", 0.4, 0)}
-    >
+    <motion.div className="achievementScreen-container p-0 m-0 h-100 w-100" {...getAnimation("fade", 0.4, 0)}>
       <div className="achievementScreen-content w-100">
         <motion.div {...getAnimation("bounceInTop", 0.4, 1)} className={`lessonTitleHolder ${content.last ? 'last' : ''}`}>
           <div className="achievementScreen-content-wrapper">
-            {/* {!content.achievement ?  */}
               <div className="UpperDiv">
                 <motion.div {...getAnimation("rotateZoomIn", 0.8, 1)} className="smallStarRight">
                   <img src={smallStarImg} alt="small star" />
@@ -64,51 +60,31 @@ const AchievementScreen = ({parameters}) => {
                 </motion.div>
               </div>
 
-             
-
             <div className="achievementScreen-content-titles">
-              <motion.div
-                {...getAnimation("expandIn", 0.8, 1)}
-                className="lessonTitle"
-                dangerouslySetInnerHTML={{ __html: content.lessonTitle }}
-              ></motion.div>
-              
+              <motion.div {...getAnimation("expandIn", 0.8, 1)} className="lessonTitle" dangerouslySetInnerHTML={{ __html: content.lessonTitle }} />
             </div>
             {content.withAvatar && (
-                <motion.div {...getAnimation("rotateZoomIn", 0.8, 1)} className="teamImageMainDiv">             
-                    <img src={achievementTeamImg} alt="achievementTeamImg" />
-                    <div className="teamSelectedAvatar">
-                      <ShowAvatarAndName />
-                    </div>
-                </motion.div>
+              <motion.div {...getAnimation("rotateZoomIn", 0.8, 1)} className="teamImageMainDiv">             
+                <img src={achievementTeamImg} alt="achievementTeamImg" />
+                <div className="teamSelectedAvatar">
+                  <ShowAvatarAndName />
+                </div>
+              </motion.div>
              )}
             {content.withScore && (
-                <motion.div {...getAnimation("rotateZoomIn", 0.8, 1)} className="teamImageMainDiv">             
-                    <div className="teamSelectedScore">
-                     <ShowScoring />
-                    </div>
-                </motion.div>
-             )} 
-
-
-            {
-              !content.last ? 
-                <motion.div
-                  className="startLessonBtnHolder"
-                  {...getAnimation("scaleIn", 0.4, 1)}
-                >
-                  <button className="startLessonBtn" onClick={handleStartAnimations}>
-                    {/* {!content.achievement ? 
-                      <FormattedMessage id='achievementScreen.start' />
-                      :
-                      <FormattedMessage id='achievementScreen.next' />
-                    } */}
-                    استمر
-                  </button>
-                </motion.div>
-              :
-                <></>
-            }
+              <motion.div {...getAnimation("rotateZoomIn", 0.8, 1)} className="teamImageMainDiv">             
+                <div className="teamSelectedScore">
+                  <ShowScoring />
+                </div>
+              </motion.div>
+            )} 
+            {!content.last  && (
+              <motion.div className="startLessonBtnHolder" {...getAnimation("scaleIn", 0.4, 1)}>
+                <button className="startLessonBtn" onClick={handleStartAnimations}>
+                  <FormattedMessage id='feedback.continue' />
+                </button>
+              </motion.div>
+            )}
           </div>
         </motion.div>
       </div>

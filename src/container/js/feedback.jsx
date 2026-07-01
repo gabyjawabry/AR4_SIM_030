@@ -1,5 +1,5 @@
-import React, { forwardRef, useImperativeHandle, useState, useEffect, useContext  } from 'react';
-import { FormattedMessage, useIntl  } from "react-intl";
+import React, { forwardRef, useImperativeHandle, useState, useEffect, useContext } from 'react';
+import { FormattedMessage, useIntl } from "react-intl";
 import { Button } from 'react-bootstrap';
 import { useSwiper } from 'swiper/react';
 import correctSoundEffect from '../audio/correct.mp3';
@@ -32,151 +32,83 @@ const Feedback = forwardRef(({ feedback, submitLimit, handleSubmit, handleContin
     }
   }));
 
+  useEffect(() => {
+    if (feedback?.restored) {
+      setSubmitText(intl.formatMessage({id: 'feedback.continue'}));
+      setSubmitAction('continue');
+    }
+  }, [feedback?.restored, intl]);
+
   const handleFeedbackClick = async (action) => {
     let count = localSubmitCount;
     if (action === 'Submit') {
-
         count++;
         setLocalSubmitCount(count);
 
         const result = await handleSubmit('Submit');
 
-        const isCorrect =
-        result.feedbackData.isCorrect ?? false;
+        const isCorrect = result.feedbackData.isCorrect ?? false;
 
         setIsCorrect(isCorrect);
 
         const logEvent = {
-        answers: result.feedbackData.answers,
-        result: result.feedbackData.result,
-        attempt: 1,
-        timeSpent: {
+          answers: result.feedbackData.answers,
+          result: result.feedbackData.result,
+          attempt: 1,
+          timeSpent: {
             activeTime: result.feedbackData.startTime,
             idleTime: Date.now() - result.feedbackData.startTime,
             totalTime: Date.now()
-        }
+          }
         };
 
         sendEvent('submit-answer', logEvent);
 
         if (isCorrect) {
+          setAudioURL({ id: "correctSFX", url: correctSoundEffect, type: "sfx"}, () => {
+            setAudioURL({ id: "correctFeedback", url: result.feedbackData.audio, type: "correctFeedback" });
+          });
 
-        setAudioURL(
-            {
-            id: "correctSFX",
-            url: correctSoundEffect,
-            type: "sfx"
-            },
-            () => {
-            setAudioURL({
-                id: "correctFeedback",
-                url: result.feedbackData.audio,
-                type: "correctFeedback"
-            });
-            }
-        );
-
-        setSubmitText(
-            intl.formatMessage({ id: 'feedback.continue' })
-        );
-        setSubmitAction('continue');
-
+          setSubmitText(intl.formatMessage({ id: 'feedback.continue' }));
+          setSubmitAction('continue');
         } else {
+          setAudioURL({ id: "wrong", url: incorrectSoundEffect, type: "sfx" }, () => {
+            setAudioURL({ id: "incorrectFeedback", url: result.feedbackData.audio, type: "incorrectFeedback" });
+          });
 
-        setAudioURL(
-            {
-            id: "wrong",
-            url: incorrectSoundEffect,
-            type: "sfx"
-            },
-            () => {
-            setAudioURL({
-                id: "incorrectFeedback",
-                url: result.feedbackData.audio,
-                type: "incorrectFeedback"
-            });
-            }
-        );
-
-        if (
-            result.feedbackData.canRetry &&
-            submitLimit &&
-            count < submitLimit
-        ) {
-
-            setSubmitText(
-            intl.formatMessage({ id: 'feedback.tryagain' })
-            );
-
+          if (result.feedbackData.canRetry && submitLimit && count < submitLimit) {
+            setSubmitText(intl.formatMessage({ id: 'feedback.tryagain' }));
             setSubmitAction('tryagain');
-
-        } else {
-
-            setSubmitText(
-            intl.formatMessage({ id: 'feedback.continue' })
-            );
-
+          } else {
+            setSubmitText(intl.formatMessage({ id: 'feedback.continue' }));
             setSubmitAction('continue');
+          }
         }
-        }
-    }else if (action === 'continue') {
-    if (handleContinue) {
-        handleContinue();
-    }
-    }
-     else if (action === 'tryagain') {
+    }else if (action === 'continue' && handleContinue) {
+      handleContinue();
+    }else if (action === 'tryagain') {
        setLocalSubmitCount(0);
-       setSubmitText('جرّب');
        setSubmitText(intl.formatMessage({id: 'feedback.submit'}));
        setSubmitAction('Submit');
        handleSubmit('tryagain');
      }
-    
-    //else if (action === 'nextGame') {
-    //   // swiper.slideNext();
-
-    //   swiper.slideTo(2, 1);
-
-    //   setLocalSubmitCount(0);
-    //   //setSubmitText(' المهمة التالية');
-    //   setSubmitText(intl.formatMessage({id: 'feedback.next'}));
-    //   setSubmitAction('nextGame');
-    //   handleSubmit('reset');
-    // } else if (action === 'next') {
-    //   setLocalSubmitCount(0);
-    //   //setSubmitText('جرّب');
-    //   setSubmitText(intl.formatMessage({id: 'feedback.submit'}));
-    //   setSubmitAction('Submit');
-    //   handleSubmit('next');
-    // }
   };
 
-  // Always use currentTarget to avoid DOM issues
   const handleClick = (e) => {
     const action = e.currentTarget.getAttribute('data-value');
     handleFeedbackClick(action);
   };
 
   return (<>
-
-
     <div className="feedback-container">
       {feedback.class && feedback.message && (
-        // <div className={`${feedback.class} feedback-banner`}>
         <motion.div className={`${feedback.class} feedback-banner`} {...getAnimation("slideUp", 0.6, 0)}>
           <div className="feedback-text" dangerouslySetInnerHTML={{ __html: feedback.message }} />
         </motion.div>
       )}
       {!showSplash && (
-        // <div className="btnContainer">
         <motion.div className="btnContainer" {...getAnimation("expandIn", 0.6, 0)}>
-          <Button
-            disabled={submitButtonState}
-            variant="primary"
-            size="sm"
-            data-value={submitAction}
-            onClick={handleClick}
-          >
+          <Button disabled={submitButtonState} variant="primary" size="sm" data-value={submitAction} onClick={handleClick}>
             {submitText}
           </Button>
         </motion.div>

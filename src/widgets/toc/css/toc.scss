@@ -256,3 +256,6 @@ width: 295px;
     left: 38px;
     top: 34px;
 }
+.audio-icon-container button.disabled{
+    pointer-events: none;
+  }

@@ -28,41 +28,54 @@
     },
     "Question_2": {
       "type": "userNamePage",
-      "mainQuestionAudio": "audio/page3/audio_3_1.mp3"
+      "content": {
+        "mainQuestion": "اكتبْ اسمَكَ لِتبدأَ مهمّةَ القيادة، ثمَّ انقرْ على زرِّ تأكيدٍ:",
+        "inputLabel": "الاسم:",
+        "mainQuestionAudio": "audio/page3/audio_3_1.mp3"
+      }
     },
     "Question_3": {
-      "type": "welcomeUser"
+      "type": "welcomeUser",
+      "content": {
+        "mainQuestion": "مرحباً بك يا:",
+        "mainQuestionAudio": "audio/page3/audio_3_1.mp3"
+      }
     },
     "Question_4": {
       "type": "chooseAvatarPage",
-      "mainQuestionAudio": "audio/page4/audio_4_1.mp3",
-      "avatars": [
-        {
-          "id": "avatar01",
-          "image": "images/avatar01.png",
-          "name": "Avatar 1"
-        },
-        {
-          "id": "avatar02",
-          "image": "images/avatar02.png",
-          "name": "Avatar 2"
-        },
-        {
-          "id": "avatar03",
-          "image": "images/avatar03.png",
-          "name": "Avatar 3"
-        },
-        {
-          "id": "avatar04",
-          "image": "images/avatar04.png",
-          "name": "Avatar 4"
-        }
-      ]
-
+      "content": {
+        "mainQuestion": "اخترِ الشّخصيّةَ الّتي سَتُمَثِّلُكَ في قيادةِ الفريقِ.",
+        "mainQuestionAudio": "audio/page4/audio_4_1.mp3",
+        "avatars": [
+          {
+            "id": "avatar01",
+            "image": "images/avatar01.png",
+            "name": "Avatar 1"
+          },
+          {
+            "id": "avatar02",
+            "image": "images/avatar02.png",
+            "name": "Avatar 2"
+          },
+          {
+            "id": "avatar03",
+            "image": "images/avatar03.png",
+            "name": "Avatar 3"
+          },
+          {
+            "id": "avatar04",
+            "image": "images/avatar04.png",
+            "name": "Avatar 4"
+          }
+        ]
+      }
     },
     "Question_5": {
       "type": "avatarPage",
-      "mainQuestionAudio": "audio/page5/audio_5_1.mp3"
+      "content": {
+        "mainQuestion": "اختيارٌ موفَّقٌ",
+        "mainQuestionAudio": "audio/page5/audio_5_1.mp3"
+      }
     },
     "Question_6": {
       "type": "toc",

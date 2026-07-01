@@ -11,15 +11,12 @@ export default function LessonQuestion(props) {
     useEffect(() => {
         let isMounted = true;
         GetWidget(questionType).then((component) => {
-            if (isMounted) setWidget(() => component); // store as component, not execute
+            if (isMounted) setWidget(() => component);
         });
         return () => { isMounted = false; }
     }, [questionType]);
 
-    if (!Widget) return null; // wait for component to load
+    if (!Widget) return null;
 
-    return <Widget 
-    parameters={question}
-    tocState={props.tocState}
-    handleCheckAnswer={props.handleCheckAnswer}/>;
+    return <Widget parameters={question} tocState={props.tocState} />;
 }

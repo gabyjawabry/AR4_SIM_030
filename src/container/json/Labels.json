@@ -21,12 +21,17 @@
         "feedback.seewhy": "لماذا؟",
         "feedback.tryagain": "حاولْ مرّةً أخرى",
         "feedback.continue": "استمرْ",
+        "feedback.confirm": "تأكيد",
+        "feedback.buy": "شراء",
         "explanation.title": "الإجاباتُ الصحيحةُ",
         "explanation.closeButton": "تمام",
         "page.loading": "تحميل...",
         "dnd.space.droppable": "اترك إجابتك هنا.",
         "fib.fraction.picker": "حدد نوع الإجابة",
         "feedback.next": "التالي",
-        "toc.results": "النتيجة"
+        "toc.results": "النّتيجة",
+        "dropDownList.select": "اختر",
+        "hint.needhelp": "تحتاج مساعدة؟",
+        "username.placeholder": "اكتب اسمك هنا..."
     }
 }

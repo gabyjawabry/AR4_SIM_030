@@ -31,15 +31,13 @@ const LessonSlide = (props) => {
   const tocIndex = props.tocIndex;
   const pageContext = useContext(PageContext);
   const [activeIndex, setActiveIndex] = useState(0);
-    const tocState = props.tocState || {};
-  const handleCheckAnswer = props.handleCheckAnswer;
-  /* -------------------------- SLIDE CHANGE ---------------------------*/
-  function swiperSlideChange(e) {
+  const tocState = props.tocState || {};
+
+  const swiperSlideChange = (e) => {
     const newIndex = e.activeIndex;
 
     setActiveIndex(newIndex);
 
-    // ✅ SAFE: only if context exists
     pageContext?.setActiveSlide?.(newIndex);
 
     // Pause all videos
@@ -60,18 +58,7 @@ const LessonSlide = (props) => {
 
     if (audioButton) audioButton.focus();
   };
-// const handleCheckAnswer = (index, isCorrect) => {
-//   setTocState(prev => {
-//     const updated = [...prev];
 
-//     updated[index] = {
-//       ...updated[index],
-//       status: isCorrect ? "correct" : "incorrect"
-//     };
-
-//     return updated;
-//   });
-// };
   const handleFocus = (e) => {
     const swiper = document.querySelector('#container-swiper')?.swiper;
     if (!swiper) return;
@@ -95,31 +82,30 @@ const LessonSlide = (props) => {
     if (audioButton) audioButton.focus();
   };
 
-  // const swiperInit = (e) => {
-  //   e.el.addEventListener('focus', handleFocus, true);
-  // };
+  const swiperInit = (e) => {
+    //e.el.addEventListener('focus', handleFocus, true);
+  };
 
-  /* -------------------------- RENDER ---------------------------*/
   return (
     <Row id={props.id} className="h-100 swiper-container p-0 m-0">
       {slideItems.length > 0 ? (
         <Swiper
-  id="container-swiper"
-  observer={true}
-  observeParents={true}
-  autoHeight={false}
-  allowTouchMove={false}
-  onSlideChange={swiperSlideChange}
-  onSlideChangeTransitionEnd={swiperSlideChangeTransitionEnd}
-  // onSwiper={swiperInit}
-  effect={animation}
-  keyboard={{ enabled: false }}
-  pagination={showNavigation ? pagination : false}
-  navigation={false}
-  modules={[Keyboard, Pagination, Navigation]}
-  className="mySwiper h-100"
-  data-showtitle={showTitle}
-  watchSlidesProgress={true}        >
+          id="container-swiper"
+          observer={true}
+          observeParents={true}
+          autoHeight={false}
+          allowTouchMove={false}
+          onSlideChange={swiperSlideChange}
+          onSlideChangeTransitionEnd={swiperSlideChangeTransitionEnd}
+          onSwiper={swiperInit}
+          effect={animation}
+          keyboard={{ enabled: false }}
+          pagination={showNavigation ? pagination : false}
+          navigation={false}
+          modules={[Keyboard, Pagination, Navigation]}
+          className="mySwiper h-100"
+          data-showtitle={showTitle}
+          watchSlidesProgress={true}>
           {slideItems.map((item, i) => (
             <SwiperSlide
               key={`slide-${i}`}
@@ -130,13 +116,6 @@ const LessonSlide = (props) => {
               data-right-title={item.rightTitle}
               className="pt-0"
             >
-              {/* <motion.div
-                key={`motion-${i}`} variants={getAnimation("screenOpener", 1, 0)} initial="initial" animate={controls}
-                {...(activeIndex === i
-                  ? getAnimation("screenOpener", 1, 0)
-                  : {})}
-                className="swiper-slide-motion-wrapper"
-              > */}
               <motion.div
                 {...(activeIndex === i
                   ? getAnimation("screenOpener", 1, 0)
@@ -147,7 +126,6 @@ const LessonSlide = (props) => {
                   id={item.content[0].component_id}
                   slideIndex={tocIndex}
                   tocState={tocState}
-                  handleCheckAnswer={props.handleCheckAnswer}
                   className="swiper-slide-section px-3 pt-3 pb-sm-4 pb-3"
                 />
               </motion.div>

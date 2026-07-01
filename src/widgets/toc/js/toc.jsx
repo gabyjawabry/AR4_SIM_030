@@ -88,21 +88,21 @@ const TOC = (props) => {
     if (!isVisible) return;
 
     let mounted = true;
+    const tocAudioBtn = document.querySelector(".toc-container .audio-icon-container button");
 
     if (!firstLoad) {
       controls.start("animate");
-
+      tocAudioBtn.classList.add('disabled');
       setTimeout(() => setAudioURL({id: "fall1", url: SlideSFX, type: "sfx"}), 1000);
       setTimeout(() => setAudioURL({id: "fall2", url: SlideSFX, type: "sfx"}), 2500);
       setTimeout(() => setAudioURL({id: "fall3", url: SlideSFX, type: "sfx"}), 4000);
       setTimeout(() => setAudioURL({id: "fall3", url: SlideSFX, type: "sfx"}, () => {
+        tocAudioBtn.classList.remove('disabled');
         handleTOCAudio();
         setAnimationsCompleted(true);
       }), 5500);
-      
       setFirstLoad(true);
     } else {
-     
       handleTOCAudio();
     }
 

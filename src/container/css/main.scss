@@ -107,17 +107,20 @@ body {
 
 
 button.show-TOC-button,button.show-TOC-button:hover ,button.show-TOC-button:active ,button.show-TOC-button:focus-visible {
-    background-color: #d4ebc6;
-    border: 3px solid #ffffff;
-    FONT-VARIANT: JIS78;
+    border: 0;
     height: 75px;
     width: 75px;
-    border-radius: 50%;
     color: #052437;
     position: absolute;
     top: 28px;
     left: 42px;
     z-index: 1;
+    padding: 0;
+    transition: all 0.2s ease;
+    &:hover{
+        transform: scale(1.1);
+        transform-origin: center;
+    }
 }
 .mainQuestionHolderDiv {
     width: 100%;

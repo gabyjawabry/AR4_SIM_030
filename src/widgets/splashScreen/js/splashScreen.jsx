@@ -55,9 +55,9 @@ const SplashScreen = ({parameters}) => {
        
     }
 
-    return () => {
-      stopAudio();
-    };
+    // return () => {
+    //   stopAudio();
+    // };
   }, [content.audio, setAudioURL, stopAudio]);
 
 
@@ -106,7 +106,7 @@ const SplashScreen = ({parameters}) => {
                 className="startLessonBtn"
                 onClick={handleStartAnimations}
               >
-                ابدأْ
+                <FormattedMessage id='splashScreen.start' /> 
               </button>
             </motion.div>
           </div>
